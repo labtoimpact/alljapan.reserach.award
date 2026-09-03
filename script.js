@@ -53,20 +53,27 @@ behavior: 'smooth'
 });
 });
 });
-// ===== スクロールアニメーション =====
+// ===== ページ全体をぬるっと表示 =====
 
-const fadeElements = document.querySelectorAll('.fade-up');
+const elements = document.querySelectorAll(
+'section h2, section h3, section p, section .card, section .btn, section li, section table, section img'
+);
 
-const observer = new IntersectionObserver((entries) => {
+elements.forEach((element) => {
+element.classList.add('reveal');
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
 entries.forEach((entry) => {
 if (entry.isIntersecting) {
 entry.target.classList.add('show');
+revealObserver.unobserve(entry.target);
 }
 });
 }, {
-threshold: 0.15
+threshold: 0.12
 });
 
-fadeElements.forEach((element) => {
-observer.observe(element);
+document.querySelectorAll('.reveal').forEach((element) => {
+revealObserver.observe(element);
 });
