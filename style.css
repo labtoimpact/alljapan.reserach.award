@@ -1,4 +1,3 @@
-```css
 /* =========================================================
    Lab to Impact
    全国高校生研究論文大賞 2026
@@ -297,9 +296,16 @@ select {
 
   padding: 160px 0 100px;
 
-  background-color: var(--navy-deep);
+  /* 真っ白ではなく、研究サイトらしい淡いブルー */
+  background:
+    linear-gradient(
+      115deg,
+      #f8fbfd 0%,
+      #f3f9fc 45%,
+      #eaf8fc 100%
+    );
 
-  color: var(--white);
+  color: var(--navy-deep);
 
   overflow: hidden;
 
@@ -320,14 +326,22 @@ select {
 
   background:
     radial-gradient(
-      circle at 80% 20%,
-      rgba(0, 210, 255, 0.15) 0%,
-      transparent 50%
+      circle at 84% 22%,
+      rgba(0, 210, 255, 0.20) 0%,
+      rgba(0, 210, 255, 0.10) 20%,
+      transparent 48%
     ),
     radial-gradient(
-      circle at 20% 80%,
-      rgba(58, 134, 255, 0.1) 0%,
-      transparent 50%
+      circle at 20% 88%,
+      rgba(58, 134, 255, 0.08) 0%,
+      rgba(58, 134, 255, 0.035) 28%,
+      transparent 58%
+    ),
+    radial-gradient(
+      circle at 58% 42%,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0.35) 28%,
+      transparent 62%
     );
 
   z-index: 1;
@@ -344,7 +358,7 @@ select {
   }
 
   to {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 
 }
@@ -369,7 +383,10 @@ select {
 
   overflow: visible;
 
-  opacity: 0.95;
+  opacity: 0.88;
+
+  /* 背景に溶け込みすぎないよう、ほんの少しだけコントラスト */
+  filter: saturate(1.05);
 }
 
 
@@ -388,22 +405,23 @@ select {
 
   position: absolute;
 
-  width: 520px;
-  height: 520px;
+  width: 560px;
+  height: 560px;
 
-  right: 6%;
-  top: 8%;
+  right: 4%;
+  top: 5%;
 
   background:
     radial-gradient(
       circle,
-      rgba(0, 210, 255, 0.13) 0%,
-      rgba(0, 210, 255, 0.06) 25%,
-      rgba(58, 134, 255, 0.025) 45%,
+      rgba(0, 210, 255, 0.18) 0%,
+      rgba(0, 210, 255, 0.10) 18%,
+      rgba(58, 134, 255, 0.05) 38%,
+      rgba(255, 255, 255, 0.02) 52%,
       transparent 72%
     );
 
-  filter: blur(28px);
+  filter: blur(30px);
 
   pointer-events: none;
 
@@ -418,12 +436,12 @@ select {
 
   0% {
     transform: scale(0.88);
-    opacity: 0.55;
+    opacity: 0.60;
   }
 
   100% {
     transform: scale(1.12);
-    opacity: 1;
+    opacity: 0.95;
   }
 
 }
@@ -441,9 +459,9 @@ select {
 .hero-badge {
   display: inline-block;
 
-  background-color: rgba(0, 210, 255, 0.2);
+  background-color: rgba(0, 210, 255, 0.16);
 
-  color: var(--cyan);
+  color: #087d98;
 
   padding: 6px 12px;
 
@@ -453,6 +471,8 @@ select {
   font-weight: 700;
 
   margin-bottom: 15px;
+
+  border: 1px solid rgba(0, 210, 255, 0.12);
 }
 
 
@@ -463,7 +483,7 @@ select {
 
   letter-spacing: 0.1em;
 
-  color: var(--cyan);
+  color: #087d98;
 
   margin-bottom: 10px;
 }
@@ -474,23 +494,29 @@ select {
 
   font-weight: 900;
 
-  line-height: 2;
+  line-height: 1.65;
 
   margin-bottom: 25px;
 
   font-family: 'Noto Serif JP', serif;
+
+  /* タイトルは背景より前に、黒くシャープに表示 */
+  color: #0a1128;
+
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 
 .hero-title .highlight {
-  color: var(--cyan);
+  color: #007f9b;
 }
 
 
 .hero-lead {
   font-size: 1rem;
 
-  color: #cbd5e1;
+  /* スクショで薄すぎた説明文を読みやすく */
+  color: #64748b;
 
   margin-bottom: 40px;
 
@@ -1491,7 +1517,7 @@ th {
 
     top: 18%;
 
-    opacity: 0.52;
+    opacity: 0.58;
   }
 
 
@@ -1503,6 +1529,18 @@ th {
     right: -20%;
 
     top: 18%;
+
+    opacity: 0.82;
+  }
+
+
+  .hero-title {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+  }
+
+
+  .hero-lead {
+    color: #64748b;
   }
 
 
@@ -1742,4 +1780,3 @@ th {
 /* =========================================================
    END
    ========================================================= */
-```
