@@ -1,4 +1,3 @@
-```javascript
 /* =========================================================
    Lab to Impact - script.js
    サイト全体の動き + Hero 3D Molecule
@@ -14,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.getElementById("nav");
 
   if (menuToggle && nav) {
+
     menuToggle.addEventListener("click", () => {
       nav.classList.toggle("active");
     });
@@ -22,10 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = nav.querySelectorAll("a");
 
     navLinks.forEach(link => {
+
       link.addEventListener("click", () => {
         nav.classList.remove("active");
       });
+
     });
+
   }
 
 
@@ -45,9 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 他のFAQを閉じる
       faqItems.forEach(otherItem => {
+
         if (otherItem !== item) {
           otherItem.classList.remove("active");
         }
+
       });
 
       // クリックしたFAQを開閉
@@ -143,16 +148,26 @@ window.addEventListener("load", () => {
 
   // Three.jsが読み込まれていない場合は何もしない
   if (typeof THREE === "undefined") {
+
     console.warn("Three.js が読み込まれていません。");
+
     return;
+
   }
 
 
-  const container = document.getElementById("molecule-container");
+  const container =
+    document.getElementById("molecule-container");
+
 
   if (!container) {
-    console.warn("#molecule-container が見つかりません。");
+
+    console.warn(
+      "#molecule-container が見つかりません。"
+    );
+
     return;
+
   }
 
 
@@ -167,91 +182,141 @@ window.addEventListener("load", () => {
      Camera
      ======================================================= */
 
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    100
-  );
+  const camera =
+    new THREE.PerspectiveCamera(
+      45,
+      container.clientWidth /
+        container.clientHeight,
+      0.1,
+      100
+    );
 
-  camera.position.set(0, 0, 8);
+  camera.position.set(
+    0,
+    0,
+    8
+  );
 
 
   /* =======================================================
      Renderer
      ======================================================= */
 
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true
-  });
+  const renderer =
+    new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true
+    });
+
 
   renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, 2)
+    Math.min(
+      window.devicePixelRatio,
+      2
+    )
   );
+
 
   renderer.setSize(
     container.clientWidth,
     container.clientHeight
   );
 
-  renderer.setClearColor(0x000000, 0);
 
-  container.appendChild(renderer.domElement);
+  renderer.setClearColor(
+    0x000000,
+    0
+  );
+
+
+  container.appendChild(
+    renderer.domElement
+  );
 
 
   /* =======================================================
      Lights
      ======================================================= */
 
-  const ambientLight = new THREE.AmbientLight(
-    0x7ddfff,
-    1.0
+  const ambientLight =
+    new THREE.AmbientLight(
+      0x7ddfff,
+      1.0
+    );
+
+  scene.add(
+    ambientLight
   );
 
-  scene.add(ambientLight);
 
+  const cyanLight =
+    new THREE.PointLight(
+      0x00d2ff,
+      2.5,
+      12
+    );
 
-  const cyanLight = new THREE.PointLight(
-    0x00d2ff,
-    2.5,
-    12
+  cyanLight.position.set(
+    2,
+    2,
+    4
   );
 
-  cyanLight.position.set(2, 2, 4);
-
-  scene.add(cyanLight);
-
-
-  const blueLight = new THREE.PointLight(
-    0x3a86ff,
-    2.0,
-    10
+  scene.add(
+    cyanLight
   );
 
-  blueLight.position.set(-3, -1, 2);
 
-  scene.add(blueLight);
+  const blueLight =
+    new THREE.PointLight(
+      0x3a86ff,
+      2.0,
+      10
+    );
 
-
-  const softLight = new THREE.PointLight(
-    0x7ee8ff,
-    1.5,
-    8
+  blueLight.position.set(
+    -3,
+    -1,
+    2
   );
 
-  softLight.position.set(0, 3, -2);
+  scene.add(
+    blueLight
+  );
 
-  scene.add(softLight);
+
+  const softLight =
+    new THREE.PointLight(
+      0x7ee8ff,
+      1.5,
+      8
+    );
+
+  softLight.position.set(
+    0,
+    3,
+    -2
+  );
+
+  scene.add(
+    softLight
+  );
 
 
   /* =======================================================
      Molecule Group
      ======================================================= */
 
-  const molecule = new THREE.Group();
+  const molecule =
+    new THREE.Group();
 
-  molecule.position.set(1.35, 0.15, 0);
+
+  molecule.position.set(
+    1.35,
+    0.15,
+    0
+  );
+
 
   molecule.scale.set(
     1.15,
@@ -259,7 +324,10 @@ window.addEventListener("load", () => {
     1.15
   );
 
-  scene.add(molecule);
+
+  scene.add(
+    molecule
+  );
 
 
   /* =======================================================
@@ -273,41 +341,50 @@ window.addEventListener("load", () => {
     position
   ) {
 
-    const geometry = new THREE.SphereGeometry(
-      radius,
-      32,
-      32
+    const geometry =
+      new THREE.SphereGeometry(
+        radius,
+        32,
+        32
+      );
+
+
+    const material =
+      new THREE.MeshStandardMaterial({
+
+        color: color,
+
+        emissive: emissiveColor,
+
+        emissiveIntensity: 0.7,
+
+        roughness: 0.25,
+
+        metalness: 0.15,
+
+        transparent: true,
+
+        opacity: 0.96
+
+      });
+
+
+    const atom =
+      new THREE.Mesh(
+        geometry,
+        material
+      );
+
+
+    atom.position.copy(
+      position
     );
 
 
-    const material = new THREE.MeshStandardMaterial({
-
-      color: color,
-
-      emissive: emissiveColor,
-
-      emissiveIntensity: 0.7,
-
-      roughness: 0.25,
-
-      metalness: 0.15,
-
-      transparent: true,
-
-      opacity: 0.96
-
-    });
-
-
-    const atom = new THREE.Mesh(
-      geometry,
-      material
+    molecule.add(
+      atom
     );
 
-
-    atom.position.copy(position);
-
-    molecule.add(atom);
 
     return atom;
 
@@ -324,55 +401,81 @@ window.addEventListener("load", () => {
     radius = 0.025
   ) {
 
-    const direction = new THREE.Vector3()
-      .subVectors(end, start);
+    const direction =
+      new THREE.Vector3()
+        .subVectors(
+          end,
+          start
+        );
 
-    const length = direction.length();
 
-    const geometry = new THREE.CylinderGeometry(
-      radius,
-      radius,
-      length,
-      16
+    const length =
+      direction.length();
+
+
+    const geometry =
+      new THREE.CylinderGeometry(
+        radius,
+        radius,
+        length,
+        16
+      );
+
+
+    const material =
+      new THREE.MeshStandardMaterial({
+
+        color: 0x00d2ff,
+
+        emissive: 0x00d2ff,
+
+        emissiveIntensity: 0.65,
+
+        transparent: true,
+
+        opacity: 0.72
+
+      });
+
+
+    const bond =
+      new THREE.Mesh(
+        geometry,
+        material
+      );
+
+
+    const midpoint =
+      new THREE.Vector3()
+        .addVectors(
+          start,
+          end
+        )
+        .multiplyScalar(
+          0.5
+        );
+
+
+    bond.position.copy(
+      midpoint
     );
-
-
-    const material = new THREE.MeshStandardMaterial({
-
-      color: 0x00d2ff,
-
-      emissive: 0x00d2ff,
-
-      emissiveIntensity: 0.65,
-
-      transparent: true,
-
-      opacity: 0.72
-
-    });
-
-
-    const bond = new THREE.Mesh(
-      geometry,
-      material
-    );
-
-
-    const midpoint = new THREE.Vector3()
-      .addVectors(start, end)
-      .multiplyScalar(0.5);
-
-    bond.position.copy(midpoint);
 
 
     // Cylinderの初期方向はY軸
     bond.quaternion.setFromUnitVectors(
-      new THREE.Vector3(0, 1, 0),
+      new THREE.Vector3(
+        0,
+        1,
+        0
+      ),
       direction.normalize()
     );
 
 
-    molecule.add(bond);
+    molecule.add(
+      bond
+    );
+
 
     return bond;
 
@@ -383,11 +486,12 @@ window.addEventListener("load", () => {
      Molecule Structure
      ======================================================= */
 
-  const centerPosition = new THREE.Vector3(
-    0,
-    0,
-    0
-  );
+  const centerPosition =
+    new THREE.Vector3(
+      0,
+      0,
+      0
+    );
 
 
   const atomPositions = [
@@ -423,12 +527,13 @@ window.addEventListener("load", () => {
      Center Atom
      ======================================================= */
 
-  const centerAtom = createAtom(
-    0.42,
-    0x00d2ff,
-    0x00d2ff,
-    centerPosition
-  );
+  const centerAtom =
+    createAtom(
+      0.42,
+      0x00d2ff,
+      0x00d2ff,
+      centerPosition
+    );
 
 
   /* =======================================================
@@ -438,24 +543,38 @@ window.addEventListener("load", () => {
   const outerAtoms = [];
 
 
-  atomPositions.forEach((position, index) => {
+  atomPositions.forEach(
+    (position, index) => {
 
-    const atom = createAtom(
-      index % 2 === 0 ? 0.28 : 0.23,
-      index % 2 === 0 ? 0x3a86ff : 0x7ee8ff,
-      0x00d2ff,
-      position
-    );
+      const atom =
+        createAtom(
+          index % 2 === 0
+            ? 0.28
+            : 0.23,
 
-    outerAtoms.push(atom);
+          index % 2 === 0
+            ? 0x3a86ff
+            : 0x7ee8ff,
 
-    createBond(
-      centerPosition,
-      position,
-      0.025
-    );
+          0x00d2ff,
 
-  });
+          position
+        );
+
+
+      outerAtoms.push(
+        atom
+      );
+
+
+      createBond(
+        centerPosition,
+        position,
+        0.025
+      );
+
+    }
+  );
 
 
   /* =======================================================
@@ -468,6 +587,7 @@ window.addEventListener("load", () => {
     0.015
   );
 
+
   createBond(
     atomPositions[1],
     atomPositions[3],
@@ -476,36 +596,38 @@ window.addEventListener("load", () => {
 
 
   /* =======================================================
-     Particle System
+     Background Particle System
      ======================================================= */
 
   const particleCount = 320;
 
-  const particlePositions = new Float32Array(
-    particleCount * 3
-  );
 
-  const particleSizes = new Float32Array(
-    particleCount
-  );
+  const particlePositions =
+    new Float32Array(
+      particleCount * 3
+    );
 
 
-  for (let i = 0; i < particleCount; i++) {
+  for (
+    let i = 0;
+    i < particleCount;
+    i++
+  ) {
 
-    const i3 = i * 3;
+    const i3 =
+      i * 3;
+
 
     particlePositions[i3] =
       (Math.random() - 0.5) * 7;
 
+
     particlePositions[i3 + 1] =
       (Math.random() - 0.5) * 5;
 
+
     particlePositions[i3 + 2] =
       (Math.random() - 0.5) * 7;
-
-
-    particleSizes[i] =
-      0.02 + Math.random() * 0.045;
 
   }
 
@@ -524,7 +646,7 @@ window.addEventListener("load", () => {
 
 
   /* =======================================================
-     Particle Material
+     Background Particle Material
      ======================================================= */
 
   const particleMaterial =
@@ -540,17 +662,19 @@ window.addEventListener("load", () => {
 
       depthWrite: false,
 
-      blending: THREE.AdditiveBlending,
+      blending:
+        THREE.AdditiveBlending,
 
       sizeAttenuation: true
 
     });
 
 
-  const particles = new THREE.Points(
-    particleGeometry,
-    particleMaterial
-  );
+  const particles =
+    new THREE.Points(
+      particleGeometry,
+      particleMaterial
+    );
 
 
   particles.position.set(
@@ -560,32 +684,120 @@ window.addEventListener("load", () => {
   );
 
 
-  scene.add(particles);
-
-
-  /* =======================================================
-     Larger Soft Glow Particles
-     ======================================================= */
-
-  const glowCount = 35;
-
-  const glowPositions = new Float32Array(
-    glowCount * 3
+  scene.add(
+    particles
   );
 
 
-  for (let i = 0; i < glowCount; i++) {
+  /* =======================================================
+     Soft Glow Particles
+     =======================================================
+     
+     ここが「ぽわぽわ」のメインです。
+     
+     普通の小さな粒ではなく、
+     分子の周囲をゆっくり漂う発光粒子を作ります。
+     ======================================================= */
 
-    const i3 = i * 3;
+  const glowCount = 42;
+
+
+  const glowPositions =
+    new Float32Array(
+      glowCount * 3
+    );
+
+
+  const glowBasePositions = [];
+
+
+  for (
+    let i = 0;
+    i < glowCount;
+    i++
+  ) {
+
+    const i3 =
+      i * 3;
+
+
+    /*
+     * 分子周辺を中心に配置
+     *
+     * 完全なランダムではなく、
+     * 少し広がった楕円形の範囲にします。
+     */
+
+    const angle =
+      Math.random() *
+      Math.PI *
+      2;
+
+
+    const radius =
+      1.5 +
+      Math.random() * 2.4;
+
+
+    const x =
+      1.0 +
+      Math.cos(angle) *
+      radius *
+      1.15;
+
+
+    const y =
+      Math.sin(angle) *
+      radius *
+      0.72;
+
+
+    const z =
+      (Math.random() - 0.5) *
+      2.5;
+
 
     glowPositions[i3] =
-      (Math.random() - 0.5) * 6;
+      x;
+
 
     glowPositions[i3 + 1] =
-      (Math.random() - 0.5) * 4.5;
+      y;
+
 
     glowPositions[i3 + 2] =
-      (Math.random() - 0.5) * 5;
+      z;
+
+
+    glowBasePositions.push({
+
+      x: x,
+
+      y: y,
+
+      z: z,
+
+      phase:
+        Math.random() *
+        Math.PI *
+        2,
+
+      speed:
+        0.25 +
+        Math.random() *
+        0.45,
+
+      amplitude:
+        0.06 +
+        Math.random() *
+        0.14,
+
+      size:
+        0.08 +
+        Math.random() *
+        0.13
+
+    });
 
   }
 
@@ -603,40 +815,112 @@ window.addEventListener("load", () => {
   );
 
 
+  /*
+   * 発光用の丸い粒
+   *
+   * AdditiveBlendingによって
+   * 淡い青い光として背景に重なります。
+   */
+
   const glowMaterial =
     new THREE.PointsMaterial({
 
       color: 0x00d2ff,
 
-      size: 0.13,
+      size: 0.20,
 
       transparent: true,
 
-      opacity: 0.15,
+      opacity: 0.32,
 
       depthWrite: false,
 
-      blending: THREE.AdditiveBlending,
+      blending:
+        THREE.AdditiveBlending,
 
       sizeAttenuation: true
 
     });
 
 
-  const glowParticles = new THREE.Points(
-    glowGeometry,
-    glowMaterial
-  );
+  const glowParticles =
+    new THREE.Points(
+      glowGeometry,
+      glowMaterial
+    );
 
 
   glowParticles.position.set(
     0,
     0,
-    -1
+    -0.7
   );
 
 
-  scene.add(glowParticles);
+  scene.add(
+    glowParticles
+  );
+
+
+  /* =======================================================
+     Extra Large Soft Halo
+     =======================================================
+     
+     分子の周囲に「光の空気感」を追加します。
+     ======================================================= */
+
+  const haloGeometry =
+    new THREE.BufferGeometry();
+
+
+  const haloPosition =
+    new Float32Array([
+      1.1,
+      0.1,
+      -1.2
+    ]);
+
+
+  haloGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+      haloPosition,
+      3
+    )
+  );
+
+
+  const haloMaterial =
+    new THREE.PointsMaterial({
+
+      color: 0x7ee8ff,
+
+      size: 1.15,
+
+      transparent: true,
+
+      opacity: 0.09,
+
+      depthWrite: false,
+
+      blending:
+        THREE.AdditiveBlending,
+
+      sizeAttenuation: true
+
+    });
+
+
+  const halo =
+    new THREE.Points(
+      haloGeometry,
+      haloMaterial
+    );
+
+
+  scene.add(
+    halo
+  );
 
 
   /* =======================================================
@@ -655,10 +939,15 @@ window.addEventListener("load", () => {
     event => {
 
       targetMouseX =
-        (event.clientX / window.innerWidth - 0.5);
+        event.clientX /
+        window.innerWidth -
+        0.5;
+
 
       targetMouseY =
-        (event.clientY / window.innerHeight - 0.5);
+        event.clientY /
+        window.innerHeight -
+        0.5;
 
     }
   );
@@ -673,17 +962,24 @@ window.addEventListener("load", () => {
     const width =
       container.clientWidth;
 
+
     const height =
       container.clientHeight;
 
 
-    if (width === 0 || height === 0) {
+    if (
+      width === 0 ||
+      height === 0
+    ) {
+
       return;
+
     }
 
 
     camera.aspect =
       width / height;
+
 
     camera.updateProjectionMatrix();
 
@@ -709,12 +1005,15 @@ window.addEventListener("load", () => {
      Animation
      ======================================================= */
 
-  const clock = new THREE.Clock();
+  const clock =
+    new THREE.Clock();
 
 
   function animate() {
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(
+      animate
+    );
 
 
     const elapsed =
@@ -726,10 +1025,17 @@ window.addEventListener("load", () => {
        ----------------------------------------------------- */
 
     mouseX +=
-      (targetMouseX - mouseX) * 0.025;
+      (
+        targetMouseX -
+        mouseX
+      ) * 0.025;
+
 
     mouseY +=
-      (targetMouseY - mouseY) * 0.025;
+      (
+        targetMouseY -
+        mouseY
+      ) * 0.025;
 
 
     /* -----------------------------------------------------
@@ -739,13 +1045,18 @@ window.addEventListener("load", () => {
     molecule.rotation.y =
       elapsed * 0.16;
 
+
     molecule.rotation.x =
-      Math.sin(elapsed * 0.45) * 0.10;
+      Math.sin(
+        elapsed * 0.45
+      ) * 0.10;
 
 
     molecule.position.y =
       0.15 +
-      Math.sin(elapsed * 0.8) * 0.16;
+      Math.sin(
+        elapsed * 0.8
+      ) * 0.16;
 
 
     molecule.position.x =
@@ -763,7 +1074,9 @@ window.addEventListener("load", () => {
 
     const breathe =
       1 +
-      Math.sin(elapsed * 1.15) * 0.025;
+      Math.sin(
+        elapsed * 1.15
+      ) * 0.025;
 
 
     molecule.scale.set(
@@ -779,49 +1092,64 @@ window.addEventListener("load", () => {
 
     centerAtom.scale.setScalar(
       1 +
-      Math.sin(elapsed * 1.8) * 0.08
+      Math.sin(
+        elapsed * 1.8
+      ) * 0.08
     );
 
 
-    outerAtoms.forEach((atom, index) => {
+    outerAtoms.forEach(
+      (atom, index) => {
 
-      const phase =
-        elapsed * 1.25 +
-        index * 0.8;
+        const phase =
+          elapsed * 1.25 +
+          index * 0.8;
 
-      const scale =
-        1 +
-        Math.sin(phase) * 0.055;
 
-      atom.scale.setScalar(scale);
+        const scale =
+          1 +
+          Math.sin(
+            phase
+          ) * 0.055;
 
-    });
+
+        atom.scale.setScalar(
+          scale
+        );
+
+      }
+    );
 
 
     /* -----------------------------------------------------
-       Particles
+       Background Particles
        ----------------------------------------------------- */
 
     particles.rotation.y =
       elapsed * 0.018;
 
+
     particles.rotation.x =
-      Math.sin(elapsed * 0.12) * 0.025;
+      Math.sin(
+        elapsed * 0.12
+      ) * 0.025;
 
 
     particles.position.x =
       mouseX * 0.18;
+
 
     particles.position.y =
       mouseY * 0.12;
 
 
     /* -----------------------------------------------------
-       Glow particles
+       Glow Particle Rotation
        ----------------------------------------------------- */
 
     glowParticles.rotation.y =
       -elapsed * 0.025;
+
 
     glowParticles.rotation.x =
       elapsed * 0.012;
@@ -830,8 +1158,110 @@ window.addEventListener("load", () => {
     glowParticles.position.x =
       mouseX * 0.25;
 
+
     glowParticles.position.y =
       mouseY * 0.18;
+
+
+    /* -----------------------------------------------------
+       Glow Particle Floating
+       -----------------------------------------------------
+       
+       粒子それぞれが違う速度で
+       ゆっくり上下・左右に漂います。
+       ----------------------------------------------------- */
+
+    const glowPositionAttribute =
+      glowGeometry.attributes.position;
+
+
+    for (
+      let i = 0;
+      i < glowCount;
+      i++
+    ) {
+
+      const data =
+        glowBasePositions[i];
+
+
+      const i3 =
+        i * 3;
+
+
+      glowPositionAttribute.array[i3] =
+        data.x +
+        Math.sin(
+          elapsed *
+            data.speed +
+            data.phase
+        ) *
+        data.amplitude;
+
+
+      glowPositionAttribute.array[i3 + 1] =
+        data.y +
+        Math.cos(
+          elapsed *
+            data.speed *
+            0.8 +
+            data.phase
+        ) *
+        data.amplitude;
+
+
+      glowPositionAttribute.array[i3 + 2] =
+        data.z +
+        Math.sin(
+          elapsed *
+            data.speed *
+            0.6 +
+            data.phase
+        ) *
+        data.amplitude *
+        0.5;
+
+    }
+
+
+    glowPositionAttribute.needsUpdate =
+      true;
+
+
+    /* -----------------------------------------------------
+       Glow Breathing
+       ----------------------------------------------------- */
+
+    glowMaterial.opacity =
+      0.23 +
+      Math.sin(
+        elapsed * 0.7
+      ) * 0.09;
+
+
+    /*
+     * 大きな光もゆっくり呼吸
+     */
+
+    const haloScale =
+      1 +
+      Math.sin(
+        elapsed * 0.55
+      ) * 0.12;
+
+
+    halo.scale.set(
+      haloScale,
+      haloScale,
+      haloScale
+    );
+
+
+    haloMaterial.opacity =
+      0.065 +
+      Math.sin(
+        elapsed * 0.55
+      ) * 0.025;
 
 
     /* -----------------------------------------------------
@@ -840,12 +1270,9 @@ window.addEventListener("load", () => {
 
     particleMaterial.opacity =
       0.43 +
-      Math.sin(elapsed * 0.75) * 0.10;
-
-
-    glowMaterial.opacity =
-      0.10 +
-      Math.sin(elapsed * 0.65) * 0.055;
+      Math.sin(
+        elapsed * 0.75
+      ) * 0.10;
 
 
     /* -----------------------------------------------------
@@ -854,24 +1281,36 @@ window.addEventListener("load", () => {
 
     cyanLight.position.x =
       2 +
-      Math.sin(elapsed * 0.5) * 1.5;
+      Math.sin(
+        elapsed * 0.5
+      ) * 1.5;
+
 
     cyanLight.position.y =
       2 +
-      Math.cos(elapsed * 0.4) * 0.8;
+      Math.cos(
+        elapsed * 0.4
+      ) * 0.8;
 
 
     blueLight.position.x =
       -3 +
-      Math.cos(elapsed * 0.35) * 1.0;
+      Math.cos(
+        elapsed * 0.35
+      ) * 1.0;
+
 
     blueLight.position.y =
       -1 +
-      Math.sin(elapsed * 0.3) * 0.8;
+      Math.sin(
+        elapsed * 0.3
+      ) * 0.8;
 
 
     softLight.position.x =
-      Math.sin(elapsed * 0.25) * 2;
+      Math.sin(
+        elapsed * 0.25
+      ) * 2;
 
 
     /* -----------------------------------------------------
@@ -879,10 +1318,17 @@ window.addEventListener("load", () => {
        ----------------------------------------------------- */
 
     camera.position.x +=
-      (mouseX * 0.18 - camera.position.x) * 0.015;
+      (
+        mouseX * 0.18 -
+        camera.position.x
+      ) * 0.015;
+
 
     camera.position.y +=
-      (-mouseY * 0.12 - camera.position.y) * 0.015;
+      (
+        -mouseY * 0.12 -
+        camera.position.y
+      ) * 0.015;
 
 
     camera.lookAt(
@@ -907,4 +1353,3 @@ window.addEventListener("load", () => {
   animate();
 
 });
-```
