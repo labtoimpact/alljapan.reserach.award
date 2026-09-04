@@ -1043,15 +1043,32 @@ window.addEventListener("load", () => {
        Molecule floating
        ----------------------------------------------------- */
 
-    molecule.rotation.y =
-      elapsed * 0.16;
+   /* -----------------------------------------------------
+   Molecule Rotation
+   自動回転 + マウス追従
+   ----------------------------------------------------- */
+
+const autoRotation =
+  elapsed * 0.28;
+
+/* マウス位置から回転角を作る */
+
+const targetRotationY =
+  autoRotation +
+  mouseX * 0.75;
+
+const targetRotationX =
+  Math.sin(elapsed * 0.45) * 0.10 +
+  mouseY * 0.45;
 
 
-    molecule.rotation.x =
-      Math.sin(
-        elapsed * 0.45
-      ) * 0.10;
+/* なめらかに追従 */
 
+molecule.rotation.y +=
+  (targetRotationY - molecule.rotation.y) * 0.035;
+
+molecule.rotation.x +=
+  (targetRotationX - molecule.rotation.x) * 0.035;
 
     molecule.position.y =
       0.15 +
