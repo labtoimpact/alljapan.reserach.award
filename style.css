@@ -808,3 +808,44 @@ to {
 transform: scale(1.08);
 }
 }
+/* =========================================
+3D MOLECULE
+========================================= */
+
+#molecule-container {
+position: absolute;
+width: 55%;
+height: 100%;
+right: 0;
+top: 0;
+
+z-index: 2;
+
+pointer-events: none;
+}
+
+/* 3Dキャンバス */
+#molecule-container canvas {
+display: block;
+width: 100%;
+height: 100%;
+}
+
+/* 文字を3D分子より前に出す */
+.hero-container {
+position: relative;
+z-index: 3;
+}
+
+/* スマホ */
+@media (max-width: 768px) {
+
+#molecule-container {
+width: 100%;
+height: 55%;
+right: 0;
+top: 25%;
+opacity: 0.65;
+}
+
+}
