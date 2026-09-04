@@ -176,14 +176,24 @@ size,
 );
 
 const material = new THREE.MeshPhysicalMaterial({
-color: 0x159eff,
-emissive: 0x0066ff,
-emissiveIntensity: 0.8,
-metalness: 0.2,
-roughness: 0.15,
+color: 0x38bdf8,
+
+emissive: 0x0284c7,
+emissiveIntensity: 1.2,
+
+metalness: 0.1,
+roughness: 0.08,
+
 transparent: true,
-opacity: 0.9
+opacity: 0.72,
+
+transmission: 0.35,
+thickness: 1.5,
+
+clearcoat: 1,
+clearcoatRoughness: 0.08
 });
+
 
 const atom = new THREE.Mesh(
 geometry,
