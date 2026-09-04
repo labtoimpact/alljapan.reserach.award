@@ -1,12 +1,12 @@
 /* =========================================================
    Lab to Impact
    全国高校生研究論文大賞 2026
-   Complete / Organized CSS
+   Complete CSS
    ========================================================= */
 
 
 /* =========================================================
-   1. ROOT VARIABLES
+   1. ROOT
    ========================================================= */
 
 :root {
@@ -28,7 +28,7 @@
 
 
 /* =========================================================
-   2. RESET / BASE
+   2. RESET
    ========================================================= */
 
 * {
@@ -37,30 +37,25 @@
   padding: 0;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 
-
 body {
   font-family: 'Noto Sans JP', sans-serif;
   color: var(--navy-deep);
-  background-color: var(--white);
+  background: #ffffff;
   line-height: 1.7;
 }
-
 
 a {
   text-decoration: none;
   color: inherit;
 }
 
-
 ul {
   list-style: none;
 }
-
 
 img {
   max-width: 100%;
@@ -68,14 +63,12 @@ img {
   display: block;
 }
 
-
 button,
 input,
 textarea,
 select {
   font: inherit;
 }
-
 
 .container {
   width: 100%;
@@ -93,44 +86,37 @@ select {
   position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
 
-  background-color: rgba(10, 17, 40, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 17, 40, 0.96);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   z-index: 1000;
 
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
-
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   height: 70px;
 }
-
-
-/* Logo */
 
 .logo {
   display: flex;
   flex-direction: column;
 }
 
-
 .logo-title {
   color: var(--white);
-
   font-weight: 700;
   font-size: 1.1rem;
 }
-
 
 .logo-sub {
   color: var(--cyan);
@@ -142,14 +128,10 @@ select {
   letter-spacing: 0.05em;
 }
 
-
-/* Navigation */
-
 .nav-list {
   display: flex;
   gap: 25px;
 }
-
 
 .nav-list a {
   color: var(--white);
@@ -157,26 +139,18 @@ select {
   font-size: 0.9rem;
   font-weight: 500;
 
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
-
 
 .nav-list a:hover {
   color: var(--cyan);
 }
 
-
-/* Header Action */
-
 .header-action {
   display: flex;
   align-items: center;
-
   gap: 15px;
 }
-
-
-/* Mobile menu button */
 
 .menu-toggle {
   display: none;
@@ -193,14 +167,13 @@ select {
   cursor: pointer;
 }
 
-
 .menu-toggle span {
   display: block;
 
   width: 100%;
   height: 3px;
 
-  background-color: var(--white);
+  background: var(--white);
 
   transition: 0.3s;
 }
@@ -227,11 +200,9 @@ select {
   cursor: pointer;
 }
 
-
 .btn:hover {
   transform: translateY(-2px);
 }
-
 
 .btn-primary {
   background-color: var(--accent-red);
@@ -240,12 +211,10 @@ select {
   border: 2px solid var(--accent-red);
 }
 
-
 .btn-primary:hover {
   background-color: #d90429;
   border-color: #d90429;
 }
-
 
 .btn-secondary {
   background-color: var(--cyan);
@@ -254,12 +223,10 @@ select {
   border: 2px solid var(--cyan);
 }
 
-
 .btn-secondary:hover {
   background-color: #00b4d8;
   border-color: #00b4d8;
 }
-
 
 .btn-outline {
   background-color: transparent;
@@ -268,18 +235,15 @@ select {
   border: 2px solid var(--navy-deep);
 }
 
-
 .btn-outline:hover {
   background-color: var(--navy-deep);
   color: var(--white);
 }
 
-
 .btn-sm {
   padding: 8px 16px;
   font-size: 0.85rem;
 }
-
 
 .btn-lg {
   padding: 12px 28px;
@@ -294,15 +258,17 @@ select {
 .hero {
   position: relative;
 
+  min-height: 680px;
+
   padding: 160px 0 100px;
 
-  /* 真っ白ではなく、研究サイトらしい淡いブルー */
   background:
     linear-gradient(
       115deg,
-      #f8fbfd 0%,
-      #f3f9fc 45%,
-      #eaf8fc 100%
+      #f9fcff 0%,
+      #f4faff 40%,
+      #eaf8fd 72%,
+      #dff5fb 100%
     );
 
   color: var(--navy-deep);
@@ -313,68 +279,63 @@ select {
 }
 
 
-/* Hero background */
+/* =========================================================
+   HERO BACKGROUND
+   ========================================================= */
 
 .hero-bg {
   position: absolute;
 
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
+  inset: 0;
 
   background:
     radial-gradient(
-      circle at 84% 22%,
-      rgba(0, 210, 255, 0.20) 0%,
-      rgba(0, 210, 255, 0.10) 20%,
-      transparent 48%
-    ),
-    radial-gradient(
-      circle at 20% 88%,
-      rgba(58, 134, 255, 0.08) 0%,
-      rgba(58, 134, 255, 0.035) 28%,
+      circle at 82% 40%,
+      rgba(0, 210, 255, 0.23) 0%,
+      rgba(0, 210, 255, 0.13) 18%,
+      rgba(0, 210, 255, 0.04) 35%,
       transparent 58%
     ),
+
     radial-gradient(
-      circle at 58% 42%,
-      rgba(255, 255, 255, 0.85) 0%,
-      rgba(255, 255, 255, 0.35) 28%,
-      transparent 62%
+      circle at 95% 10%,
+      rgba(58, 134, 255, 0.10) 0%,
+      transparent 42%
+    ),
+
+    radial-gradient(
+      circle at 30% 80%,
+      rgba(58, 134, 255, 0.08) 0%,
+      transparent 55%
     );
 
   z-index: 1;
 
-  animation:
-    backgroundFloat 8s ease-in-out infinite alternate;
+  animation: backgroundFloat 10s ease-in-out infinite alternate;
 }
 
-
 @keyframes backgroundFloat {
-
-  from {
+  0% {
     transform: scale(1);
   }
 
-  to {
+  100% {
     transform: scale(1.06);
   }
-
 }
 
 
 /* =========================================================
-   HERO 3D MOLECULE
+   MOLECULE CONTAINER
    ========================================================= */
 
 #molecule-container {
   position: absolute;
 
   top: 0;
-  right: -5%;
+  right: -3%;
 
-  width: 70%;
+  width: 72%;
   height: 100%;
 
   z-index: 2;
@@ -383,12 +344,67 @@ select {
 
   overflow: visible;
 
-  opacity: 0.88;
+  opacity: 1;
 
-  /* 背景に溶け込みすぎないよう、ほんの少しだけコントラスト */
-  filter: saturate(1.05);
+  filter:
+    saturate(1.12)
+    contrast(1.02);
 }
 
+
+/*
+   分子エリアだけに深い青い空気を作る。
+
+   参考画像のような
+   「真っ白な背景 + 青い発光空間」
+   を作るためのレイヤー。
+*/
+
+#molecule-container::before {
+  content: "";
+
+  position: absolute;
+
+  width: 760px;
+  height: 760px;
+
+  right: 2%;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 119, 190, 0.22) 0%,
+      rgba(0, 148, 210, 0.14) 20%,
+      rgba(0, 90, 160, 0.08) 40%,
+      rgba(0, 60, 130, 0.025) 58%,
+      transparent 74%
+    );
+
+  filter: blur(25px);
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  animation: moleculeAtmosphere 8s ease-in-out infinite alternate;
+}
+
+@keyframes moleculeAtmosphere {
+  0% {
+    transform: translateY(-50%) scale(0.92);
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: translateY(-50%) scale(1.08);
+    opacity: 1;
+  }
+}
 
 #molecule-container canvas {
   display: block;
@@ -398,56 +414,57 @@ select {
 }
 
 
-/* Soft glow behind molecule */
+/* =========================================================
+   HERO LARGE GLOW
+   ========================================================= */
 
 .hero::after {
   content: "";
 
   position: absolute;
 
-  width: 560px;
-  height: 560px;
+  width: 650px;
+  height: 650px;
 
-  right: 4%;
-  top: 5%;
+  right: 1%;
+  top: 4%;
+
+  border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(0, 210, 255, 0.18) 0%,
+      rgba(0, 210, 255, 0.17) 0%,
       rgba(0, 210, 255, 0.10) 18%,
       rgba(58, 134, 255, 0.05) 38%,
-      rgba(255, 255, 255, 0.02) 52%,
-      transparent 72%
+      transparent 70%
     );
 
-  filter: blur(30px);
+  filter: blur(40px);
 
   pointer-events: none;
 
   z-index: 1;
 
-  animation:
-    heroGlow 7s ease-in-out infinite alternate;
+  animation: heroGlow 7s ease-in-out infinite alternate;
 }
 
-
 @keyframes heroGlow {
-
   0% {
-    transform: scale(0.88);
-    opacity: 0.60;
+    transform: scale(0.9);
+    opacity: 0.65;
   }
 
   100% {
-    transform: scale(1.12);
-    opacity: 0.95;
+    transform: scale(1.1);
+    opacity: 1;
   }
-
 }
 
 
-/* Hero content */
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
 
 .hero-container {
   position: relative;
@@ -455,11 +472,10 @@ select {
   z-index: 3;
 }
 
-
 .hero-badge {
   display: inline-block;
 
-  background-color: rgba(0, 210, 255, 0.16);
+  background: rgba(0, 210, 255, 0.14);
 
   color: #087d98;
 
@@ -472,9 +488,8 @@ select {
 
   margin-bottom: 15px;
 
-  border: 1px solid rgba(0, 210, 255, 0.12);
+  border: 1px solid rgba(0, 210, 255, 0.15);
 }
-
 
 .hero-en {
   font-family: 'Orbitron', sans-serif;
@@ -488,7 +503,6 @@ select {
   margin-bottom: 10px;
 }
 
-
 .hero-title {
   font-size: 3rem;
 
@@ -500,29 +514,25 @@ select {
 
   font-family: 'Noto Serif JP', serif;
 
-  /* タイトルは背景より前に、黒くシャープに表示 */
   color: #0a1128;
 
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8);
 }
-
 
 .hero-title .highlight {
   color: #007f9b;
 }
 
-
 .hero-lead {
   font-size: 1rem;
 
-  /* スクショで薄すぎた説明文を読みやすく */
   color: #64748b;
 
   margin-bottom: 40px;
 
   max-width: 800px;
 }
-
 
 .hero-cta {
   display: flex;
@@ -541,18 +551,15 @@ select {
   padding: 90px 0;
 }
 
-
 .bg-light {
   background-color: var(--gray-light);
 }
-
 
 .section-header {
   text-align: center;
 
   margin-bottom: 60px;
 }
-
 
 .section-tag {
   display: inline-block;
@@ -568,7 +575,6 @@ select {
   margin-bottom: 8px;
 }
 
-
 .section-title {
   font-size: 2.2rem;
 
@@ -576,7 +582,6 @@ select {
 
   margin-bottom: 15px;
 }
-
 
 .section-desc {
   color: var(--gray-text);
@@ -599,7 +604,6 @@ select {
   margin-bottom: 50px;
 }
 
-
 .about-card {
   background: var(--gray-light);
 
@@ -610,13 +614,11 @@ select {
   border-left: 4px solid var(--blue);
 }
 
-
 .about-card h3 {
   font-size: 1.25rem;
 
   margin-bottom: 15px;
 }
-
 
 .about-list li {
   padding: 8px 0;
@@ -626,7 +628,6 @@ select {
   display: flex;
 }
 
-
 .about-list li span {
   font-weight: 700;
 
@@ -635,9 +636,6 @@ select {
   color: var(--navy-dark);
 }
 
-
-/* Feature icons */
-
 .feature-icons {
   display: grid;
 
@@ -645,7 +643,6 @@ select {
 
   gap: 20px;
 }
-
 
 .feature-item {
   background: var(--white);
@@ -663,7 +660,6 @@ select {
     box-shadow 0.25s ease;
 }
 
-
 .feature-item:hover {
   transform: translateY(-4px);
 
@@ -671,13 +667,11 @@ select {
     0 10px 25px rgba(10, 17, 40, 0.08);
 }
 
-
 .feature-icon-circle {
   font-size: 2rem;
 
   margin-bottom: 15px;
 }
-
 
 .feature-item h4 {
   font-size: 0.95rem;
@@ -695,7 +689,6 @@ select {
 
   margin: 0 auto;
 }
-
 
 .prize-total {
   background:
@@ -716,7 +709,6 @@ select {
   border-bottom: 2px solid var(--gold);
 }
 
-
 .prize-total-label {
   display: block;
 
@@ -727,7 +719,6 @@ select {
   margin-bottom: 5px;
 }
 
-
 .prize-total-amount {
   font-family: 'Orbitron', sans-serif;
 
@@ -736,11 +727,9 @@ select {
   font-weight: 700;
 }
 
-
 .prize-total-amount .unit {
   font-size: 1.2rem;
 }
-
 
 .prize-grid {
   display: grid;
@@ -755,7 +744,6 @@ select {
     0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-
 .prize-card {
   padding: 30px 20px;
 
@@ -764,16 +752,13 @@ select {
   border-right: 1px solid var(--border-color);
 }
 
-
 .prize-card:last-child {
   border-right: none;
 }
 
-
 .prize-card.featured {
   background-color: rgba(0, 210, 255, 0.05);
 }
-
 
 .prize-rank {
   font-size: 0.9rem;
@@ -785,7 +770,6 @@ select {
   margin-bottom: 10px;
 }
 
-
 .prize-money {
   font-family: 'Orbitron', sans-serif;
 
@@ -795,7 +779,6 @@ select {
 
   color: var(--navy-deep);
 }
-
 
 .prize-money span {
   font-size: 0.9rem;
@@ -820,7 +803,6 @@ select {
   align-items: center;
 }
 
-
 .score-circle {
   width: 250px;
   height: 250px;
@@ -844,7 +826,6 @@ select {
   border: 6px solid var(--cyan);
 }
 
-
 .score-total {
   font-family: 'Orbitron', sans-serif;
 
@@ -854,7 +835,6 @@ select {
 
   line-height: 1;
 }
-
 
 .score-label {
   font-family: 'Orbitron', sans-serif;
@@ -866,7 +846,6 @@ select {
   color: var(--cyan);
 }
 
-
 .judging-details {
   display: flex;
 
@@ -875,7 +854,6 @@ select {
   gap: 20px;
 }
 
-
 .judging-category {
   background: var(--gray-light);
 
@@ -883,7 +861,6 @@ select {
 
   border-radius: 6px;
 }
-
 
 .judging-category h3 {
   font-size: 1.05rem;
@@ -896,7 +873,6 @@ select {
 
   padding-bottom: 5px;
 }
-
 
 .judging-category ul li {
   display: flex;
@@ -921,7 +897,6 @@ select {
   position: relative;
 }
 
-
 .timeline::before {
   content: "";
 
@@ -936,7 +911,6 @@ select {
   background-color: var(--border-color);
 }
 
-
 .timeline-item {
   display: flex;
 
@@ -944,7 +918,6 @@ select {
 
   position: relative;
 }
-
 
 .timeline-date {
   width: 130px;
@@ -960,7 +933,6 @@ select {
   padding-top: 2px;
 }
 
-
 .timeline-content {
   flex: 1;
 
@@ -968,7 +940,6 @@ select {
 
   position: relative;
 }
-
 
 .timeline-content::before {
   content: "";
@@ -988,13 +959,11 @@ select {
   border-radius: 50%;
 }
 
-
 .timeline-content h3 {
   font-size: 1.05rem;
 
   margin-bottom: 5px;
 }
-
 
 .timeline-content p {
   font-size: 0.9rem;
@@ -1015,7 +984,6 @@ select {
   gap: 20px;
 }
 
-
 .step-card {
   background: var(--white);
 
@@ -1032,14 +1000,12 @@ select {
     box-shadow 0.25s ease;
 }
 
-
 .step-card:hover {
   transform: translateY(-4px);
 
   box-shadow:
     0 10px 25px rgba(10, 17, 40, 0.08);
 }
-
 
 .step-num {
   font-family: 'Orbitron', sans-serif;
@@ -1053,13 +1019,11 @@ select {
   margin-bottom: 10px;
 }
 
-
 .step-card h3 {
   font-size: 1rem;
 
   margin-bottom: 10px;
 }
-
 
 .step-card p {
   font-size: 0.85rem;
@@ -1069,7 +1033,7 @@ select {
 
 
 /* =========================================================
-   12. MAIL LINK
+   12. MAIL
    ========================================================= */
 
 .mail-link {
@@ -1097,7 +1061,6 @@ select {
   margin: 0 auto;
 }
 
-
 .download-card {
   background: var(--white);
 
@@ -1118,7 +1081,6 @@ select {
     box-shadow 0.25s ease;
 }
 
-
 .download-card:hover {
   transform: translateY(-4px);
 
@@ -1126,13 +1088,11 @@ select {
     0 10px 25px rgba(10, 17, 40, 0.08);
 }
 
-
 .download-card h3 {
   font-size: 1.1rem;
 
   margin-bottom: 10px;
 }
-
 
 .download-card p {
   font-size: 0.9rem;
@@ -1141,7 +1101,6 @@ select {
 
   margin-bottom: 20px;
 }
-
 
 .download-actions {
   display: flex;
@@ -1168,7 +1127,6 @@ select {
   border: 1px solid var(--border-color);
 }
 
-
 .rules-box ul li {
   margin-bottom: 15px;
 
@@ -1176,7 +1134,6 @@ select {
 
   line-height: 1.6;
 }
-
 
 .rules-box ul li:last-child {
   margin-bottom: 0;
@@ -1199,7 +1156,6 @@ select {
   gap: 15px;
 }
 
-
 .faq-item {
   background: var(--white);
 
@@ -1209,7 +1165,6 @@ select {
 
   overflow: hidden;
 }
-
 
 .faq-question {
   padding: 20px;
@@ -1227,7 +1182,6 @@ select {
   font-size: 0.95rem;
 }
 
-
 .faq-icon {
   font-size: 1.2rem;
 
@@ -1236,7 +1190,6 @@ select {
   transition:
     transform 0.3s ease;
 }
-
 
 .faq-answer {
   padding: 0 20px 20px;
@@ -1248,11 +1201,9 @@ select {
   display: none;
 }
 
-
 .faq-item.active .faq-answer {
   display: block;
 }
-
 
 .faq-item.active .faq-icon {
   transform: rotate(45deg);
@@ -1271,7 +1222,6 @@ select {
   padding: 60px 0 30px;
 }
 
-
 .footer-info h3 {
   font-size: 1.1rem;
 
@@ -1279,7 +1229,6 @@ select {
 
   color: var(--cyan);
 }
-
 
 .footer-desc {
   font-size: 0.85rem;
@@ -1291,18 +1240,15 @@ select {
   max-width: 800px;
 }
 
-
 .footer-contact {
   font-size: 0.85rem;
 
   color: #cbd5e1;
 }
 
-
 .footer-contact a {
   color: var(--cyan);
 }
-
 
 .footer-bottom {
   text-align: center;
@@ -1318,7 +1264,7 @@ select {
 
 
 /* =========================================================
-   17. SCROLL REVEAL ANIMATION
+   17. SCROLL REVEAL
    ========================================================= */
 
 .reveal {
@@ -1331,25 +1277,19 @@ select {
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-
 .reveal.show {
   opacity: 1;
 
   transform: translateY(0);
 }
 
-
-/* Staggered animation */
-
 .reveal:nth-child(2) {
   transition-delay: 0.08s;
 }
 
-
 .reveal:nth-child(3) {
   transition-delay: 0.16s;
 }
-
 
 .reveal:nth-child(4) {
   transition-delay: 0.24s;
@@ -1357,7 +1297,7 @@ select {
 
 
 /* =========================================================
-   18. TABLES
+   18. TABLE
    ========================================================= */
 
 table {
@@ -1365,7 +1305,6 @@ table {
 
   border-collapse: collapse;
 }
-
 
 th,
 td {
@@ -1376,7 +1315,6 @@ td {
   text-align: left;
 }
 
-
 th {
   font-weight: 700;
 
@@ -1385,7 +1323,7 @@ th {
 
 
 /* =========================================================
-   19. GENERAL CARD EFFECT
+   19. CARD
    ========================================================= */
 
 .card {
@@ -1393,7 +1331,6 @@ th {
     transform 0.25s ease,
     box-shadow 0.25s ease;
 }
-
 
 .card:hover {
   transform: translateY(-3px);
@@ -1404,7 +1341,7 @@ th {
 
 
 /* =========================================================
-   20. RESPONSIVE - TABLET
+   20. TABLET
    ========================================================= */
 
 @media (max-width: 992px) {
@@ -1415,11 +1352,9 @@ th {
     grid-template-columns: repeat(2, 1fr);
   }
 
-
   .judging-content {
     grid-template-columns: 1fr;
   }
-
 
   .score-circle {
     margin-bottom: 20px;
@@ -1429,14 +1364,10 @@ th {
 
 
 /* =========================================================
-   21. RESPONSIVE - MOBILE
+   21. MOBILE
    ========================================================= */
 
 @media (max-width: 768px) {
-
-  /* -----------------------------------------
-     Header / Navigation
-     ----------------------------------------- */
 
   .nav {
     position: fixed;
@@ -1458,11 +1389,9 @@ th {
     transition: left 0.3s ease;
   }
 
-
   .nav.active {
     left: 0;
   }
-
 
   .nav-list {
     flex-direction: column;
@@ -1472,20 +1401,18 @@ th {
     gap: 20px;
   }
 
-
   .menu-toggle {
     display: flex;
   }
 
 
-  /* -----------------------------------------
-     Hero
-     ----------------------------------------- */
+  /* Hero */
 
   .hero {
+    min-height: 720px;
+
     padding: 130px 0 80px;
   }
-
 
   .hero-title {
     font-size: 2.2rem;
@@ -1493,79 +1420,63 @@ th {
     line-height: 1.8;
   }
 
-
   .hero-lead {
     font-size: 0.95rem;
   }
-
 
   .hero-cta {
     gap: 10px;
   }
 
 
-  /* -----------------------------------------
-     3D Molecule
-     ----------------------------------------- */
+  /* Molecule */
 
   #molecule-container {
-    width: 125%;
+    width: 140%;
 
-    height: 70%;
+    height: 72%;
 
-    right: -32%;
+    right: -42%;
 
-    top: 18%;
+    top: 20%;
 
-    opacity: 0.58;
+    opacity: 1;
   }
 
+  #molecule-container::before {
+    width: 550px;
+    height: 550px;
+
+    right: 0;
+  }
 
   .hero::after {
-    width: 400px;
+    width: 450px;
 
-    height: 400px;
+    height: 450px;
 
-    right: -20%;
+    right: -25%;
 
     top: 18%;
-
-    opacity: 0.82;
   }
 
 
-  .hero-title {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
-  }
-
-
-  .hero-lead {
-    color: #64748b;
-  }
-
-
-  /* -----------------------------------------
-     Sections
-     ----------------------------------------- */
+  /* Sections */
 
   .section {
     padding: 70px 0;
   }
 
-
   .section-header {
     margin-bottom: 40px;
   }
-
 
   .section-title {
     font-size: 1.8rem;
   }
 
 
-  /* -----------------------------------------
-     Grids
-     ----------------------------------------- */
+  /* Grids */
 
   .about-grid,
   .step-grid,
@@ -1576,14 +1487,11 @@ th {
   }
 
 
-  /* -----------------------------------------
-     About
-     ----------------------------------------- */
+  /* About */
 
   .about-card {
     padding: 30px;
   }
-
 
   .about-list li {
     flex-direction: column;
@@ -1591,15 +1499,12 @@ th {
     gap: 2px;
   }
 
-
   .about-list li span {
     width: auto;
   }
 
 
-  /* -----------------------------------------
-     Prize
-     ----------------------------------------- */
+  /* Prize */
 
   .prize-card {
     border-right: none;
@@ -1607,45 +1512,36 @@ th {
     border-bottom: 1px solid var(--border-color);
   }
 
-
   .prize-card:last-child {
     border-bottom: none;
   }
 
 
-  /* -----------------------------------------
-     Judging
-     ----------------------------------------- */
+  /* Judging */
 
   .judging-content {
     gap: 30px;
   }
-
 
   .score-circle {
     width: 210px;
     height: 210px;
   }
 
-
   .score-total {
     font-size: 3.2rem;
   }
 
 
-  /* -----------------------------------------
-     Timeline
-     ----------------------------------------- */
+  /* Timeline */
 
   .timeline::before {
     left: 0;
   }
 
-
   .timeline-item {
     flex-direction: column;
   }
-
 
   .timeline-date {
     width: 100%;
@@ -1653,29 +1549,23 @@ th {
     margin-bottom: 5px;
   }
 
-
   .timeline-content {
     padding-left: 20px;
   }
-
 
   .timeline-content::before {
     left: -14px;
   }
 
 
-  /* -----------------------------------------
-     Download
-     ----------------------------------------- */
+  /* Download */
 
   .download-actions {
     flex-wrap: wrap;
   }
 
 
-  /* -----------------------------------------
-     Rules
-     ----------------------------------------- */
+  /* Rules */
 
   .rules-box {
     padding: 30px 20px;
@@ -1694,11 +1584,9 @@ th {
     padding: 0 16px;
   }
 
-
   .hero {
     padding-top: 120px;
   }
-
 
   .hero-title {
     font-size: 1.9rem;
@@ -1706,18 +1594,15 @@ th {
     line-height: 1.8;
   }
 
-
   .hero-en {
     font-size: 0.7rem;
 
     letter-spacing: 0.07em;
   }
 
-
   .hero-badge {
     font-size: 0.75rem;
   }
-
 
   .hero-cta {
     flex-direction: column;
@@ -1725,37 +1610,30 @@ th {
     align-items: stretch;
   }
 
-
   .hero-cta .btn {
     width: 100%;
   }
-
 
   .section-title {
     font-size: 1.6rem;
   }
 
-
   .section-desc {
     font-size: 0.9rem;
   }
-
 
   .about-card,
   .download-card {
     padding: 25px 20px;
   }
 
-
   .prize-total-amount {
     font-size: 2rem;
   }
 
-
   .judging-category {
     padding: 18px;
   }
-
 
   .score-circle {
     width: 190px;
@@ -1764,16 +1642,21 @@ th {
     border-width: 5px;
   }
 
-
   .score-total {
     font-size: 2.8rem;
   }
-
 
   .rules-box {
     padding: 25px 18px;
   }
 
+  #molecule-container {
+    width: 155%;
+
+    right: -52%;
+
+    top: 21%;
+  }
 }
 
 
