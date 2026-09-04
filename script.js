@@ -164,52 +164,6 @@ scene.add(molecule);
 
 
 // -------------------------
-// Atom
-// -------------------------
-
-// 光が呼吸するように変化
-molecule.children.forEach((object, index) => {
-if (object.material &&
-object.material.transparent) {
-const pulse =
-1 +
-Math.sin(time * 1.2 + index) * 0.04;
-object.scale.set(
-pulse,
-pulse,
-pulse
-);
-}
-});
-
-// マウスに少し反応
-molecule.rotation.y +=
-mouseX * 0.25;
-
-molecule.rotation.x +=
-mouseY * 0.15;
-
-
-// 粒子もゆっくり動く
-particles.rotation.y =
-time * 0.025;
-
-particles.rotation.x =
-Math.sin(time * 0.15) * 0.05;
-
-
-renderer.render(
-scene,
-camera
-);
-
-}
-
-
-animate();
-
-
-// -------------------------
 // Resize
 // -------------------------
 
@@ -243,6 +197,19 @@ height
 // -------------------------
 // Bond
 // -------------------------
+
+function createAtom(x, y, z, size, color) {
+const geometry = new THREE.SphereGeometry(size, 32, 32);
+const material = new THREE.MeshStandardMaterial({
+color: color,
+transparent: true,
+opacity: 0.9
+});
+const atom = new THREE.Mesh(geometry, material);
+atom.position.set(x, y, z);
+molecule.add(atom);
+return atom;
+}
 
 function createBond(atom1, atom2) {
 
@@ -555,4 +522,3 @@ height
 }
 );
 
-});
