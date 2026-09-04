@@ -167,7 +167,7 @@ scene.add(molecule);
 // Atom
 // -------------------------
 
-function createAtom(x, y, z, size) {
+function createAtom(x, y, z, size, color) {
 
 const geometry = new THREE.SphereGeometry(
 size,
@@ -176,7 +176,7 @@ size,
 );
 
 const material = new THREE.MeshPhysicalMaterial({
-color: 0x38bdf8,
+color: color,
 
 emissive: 0x0284c7,
 emissiveIntensity: 1.2,
@@ -269,19 +269,47 @@ molecule.add(bond);
 // -------------------------
 
 const atoms = [
+{
+x: 0,
+y: 0,
+z: 0,
+size: 0.55,
+color: 0x7dd3fc
+},
 
-{ x: 0, y: 0, z: 0, size: 0.55 },
+{
+x: 1.45,
+y: 0.8,
+z: 0.2,
+size: 0.34,
+color: 0x38bdf8
+},
 
-{ x: 1.45, y: 0.8, z: 0.2, size: 0.34 },
+{
+x: -1.4,
+y: 0.7,
+z: -0.1,
+size: 0.34,
+color: 0x60a5fa
+},
 
-{ x: -1.4, y: 0.7, z: -0.1, size: 0.34 },
+{
+x: 0.8,
+y: -1.3,
+z: 0.1,
+size: 0.34,
+color: 0x22d3ee
+},
 
-{ x: 0.8, y: -1.3, z: 0.1, size: 0.34 },
-
-{ x: -0.9, y: -1.2, z: -0.2, size: 0.34 }
+{
+x: -0.9,
+y: -1.2,
+z: -0.2,
+size: 0.34,
+color: 0xa5f3fc
+}
 
 ];
-
 
 const atomObjects = atoms.map(atom => {
 
@@ -290,6 +318,7 @@ atom.x,
 atom.y,
 atom.z,
 atom.size
+atom.color
 );
 
 });
