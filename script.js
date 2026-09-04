@@ -77,3 +77,403 @@ threshold: 0.12
 document.querySelectorAll('.reveal').forEach((element) => {
 revealObserver.observe(element);
 });
+/* =========================================
+3D MOLECULE ANIMATION
+========================================= */
+
+window.addEventListener("load", () => {
+
+const container = document.getElementById("molecule-container");
+
+if (!container || typeof THREE === "undefined") {
+return;
+}
+
+// -------------------------
+// Scene
+// -------------------------
+
+const scene = new THREE.Scene();
+
+
+// -------------------------
+// Camera
+// -------------------------
+
+const camera = new THREE.PerspectiveCamera(
+45,
+container.clientWidth / container.clientHeight,
+0.1,
+100
+);
+
+camera.position.set(0, 0, 8);
+
+
+// -------------------------
+// Renderer
+// -------------------------
+
+const renderer = new THREE.WebGLRenderer({
+alpha: true,
+antialias: true
+});
+
+renderer.setPixelRatio(
+Math.min(window.devicePixelRatio, 2)
+);
+
+renderer.setSize(
+container.clientWidth,
+container.clientHeight
+);
+
+container.appendChild(renderer.domElement);
+
+
+// -------------------------
+// Light
+// -------------------------
+
+const ambientLight = new THREE.AmbientLight(
+0xffffff,
+1.5
+);
+
+scene.add(ambientLight);
+
+
+const pointLight = new THREE.PointLight(
+0x00d2ff,
+4,
+20
+);
+
+pointLight.position.set(3, 4, 5);
+
+scene.add(pointLight);
+
+
+// -------------------------
+// Molecule Group
+// -------------------------
+
+const molecule = new THREE.Group();
+
+scene.add(molecule);
+
+
+// -------------------------
+// Atom
+// -------------------------
+
+function createAtom(x, y, z, size) {
+
+const geometry = new THREE.SphereGeometry(
+size,
+32,
+32
+);
+
+const material = new THREE.MeshPhysicalMaterial({
+color: 0x159eff,
+emissive: 0x0066ff,
+emissiveIntensity: 0.8,
+metalness: 0.2,
+roughness: 0.15,
+transparent: true,
+opacity: 0.9
+});
+
+const atom = new THREE.Mesh(
+geometry,
+material
+);
+
+atom.position.set(x, y, z);
+
+molecule.add(atom);
+
+return atom;
+}
+
+
+// -------------------------
+// Bond
+// -------------------------
+
+function createBond(atom1, atom2) {
+
+const start = new THREE.Vector3(
+atom1.x,
+atom1.y,
+atom1.z
+);
+
+const end = new THREE.Vector3(
+atom2.x,
+atom2.y,
+atom2.z
+);
+
+const direction = new THREE.Vector3()
+.subVectors(end, start);
+
+const length = direction.length();
+
+const geometry = new THREE.CylinderGeometry(
+0.045,
+0.045,
+length,
+16
+);
+
+const material = new THREE.MeshBasicMaterial({
+color: 0x00d2ff,
+transparent: true,
+opacity: 0.75
+});
+
+const bond = new THREE.Mesh(
+geometry,
+material
+);
+
+const midpoint = new THREE.Vector3()
+.addVectors(start, end)
+.multiplyScalar(0.5);
+
+bond.position.copy(midpoint);
+
+bond.quaternion.setFromUnitVectors(
+new THREE.Vector3(0, 1, 0),
+direction.normalize()
+);
+
+molecule.add(bond);
+}
+
+
+// -------------------------
+// Create Molecule
+// -------------------------
+
+const atoms = [
+
+{ x: 0, y: 0, z: 0, size: 0.55 },
+
+{ x: 1.45, y: 0.8, z: 0.2, size: 0.34 },
+
+{ x: -1.4, y: 0.7, z: -0.1, size: 0.34 },
+
+{ x: 0.8, y: -1.3, z: 0.1, size: 0.34 },
+
+{ x: -0.9, y: -1.2, z: -0.2, size: 0.34 }
+
+];
+
+
+const atomObjects = atoms.map(atom => {
+
+return createAtom(
+atom.x,
+atom.y,
+atom.z,
+atom.size
+);
+
+});
+
+
+// -------------------------
+// Connect Atoms
+// -------------------------
+
+createBond(
+atoms[0],
+atoms[1]
+);
+
+createBond(
+atoms[0],
+atoms[2]
+);
+
+createBond(
+atoms[0],
+atoms[3]
+);
+
+createBond(
+atoms[0],
+atoms[4]
+);
+
+
+// -------------------------
+// Floating Particles
+// -------------------------
+
+const particleGeometry =
+new THREE.BufferGeometry();
+
+const particleCount = 180;
+
+const particlePositions =
+new Float32Array(
+particleCount * 3
+);
+
+
+for (let i = 0; i < particleCount; i++) {
+
+particlePositions[i * 3] =
+(Math.random() - 0.5) * 8;
+
+particlePositions[i * 3 + 1] =
+(Math.random() - 0.5) * 6;
+
+particlePositions[i * 3 + 2] =
+(Math.random() - 0.5) * 5;
+
+}
+
+
+particleGeometry.setAttribute(
+"position",
+new THREE.BufferAttribute(
+particlePositions,
+3
+)
+);
+
+
+const particleMaterial =
+new THREE.PointsMaterial({
+
+color: 0x00d2ff,
+
+size: 0.035,
+
+transparent: true,
+
+opacity: 0.65
+
+});
+
+
+const particles =
+new THREE.Points(
+particleGeometry,
+particleMaterial
+);
+
+
+scene.add(particles);
+
+
+// -------------------------
+// Mouse
+// -------------------------
+
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener(
+"mousemove",
+(event) => {
+
+mouseX =
+(event.clientX / window.innerWidth - 0.5);
+
+mouseY =
+(event.clientY / window.innerHeight - 0.5);
+
+}
+);
+
+
+// -------------------------
+// Animation
+// -------------------------
+
+const clock = new THREE.Clock();
+
+
+function animate() {
+
+requestAnimationFrame(animate);
+
+const time = clock.getElapsedTime();
+
+
+// 分子をゆっくり回転
+molecule.rotation.y =
+time * 0.18;
+
+molecule.rotation.x =
+Math.sin(time * 0.4) * 0.08;
+
+
+// 分子全体をふわっと上下
+molecule.position.y =
+Math.sin(time * 0.8) * 0.18;
+
+
+// マウスに少し反応
+molecule.rotation.y +=
+mouseX * 0.25;
+
+molecule.rotation.x +=
+mouseY * 0.15;
+
+
+// 粒子もゆっくり動く
+particles.rotation.y =
+time * 0.025;
+
+particles.rotation.x =
+Math.sin(time * 0.15) * 0.05;
+
+
+renderer.render(
+scene,
+camera
+);
+
+}
+
+
+animate();
+
+
+// -------------------------
+// Resize
+// -------------------------
+
+window.addEventListener(
+"resize",
+() => {
+
+const width =
+container.clientWidth;
+
+const height =
+container.clientHeight;
+
+
+camera.aspect =
+width / height;
+
+camera.updateProjectionMatrix();
+
+
+renderer.setSize(
+width,
+height
+);
+
+}
+);
+
+});
