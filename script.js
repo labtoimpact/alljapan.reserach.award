@@ -167,23 +167,110 @@ scene.add(molecule);
 // Atom
 // -------------------------
 
-function createAtom(x, y, z, size, color) {
+  function createAtom(x, y, z, size, color) {
 
+// =========================
+// 原子本体
+// =========================
 const geometry = new THREE.SphereGeometry(
 size,
 32,
 32
 );
-
 const material = new THREE.MeshPhysicalMaterial({
 color: color,
+emissive: color,
+emissiveIntensity: 1.4,
+metalness: 0.05,
+roughness: 0.08,
+transparent: true,
+opacity: 0.85,
+transmission: 0.25,
+thickness: 1.2,
+clearcoat: 1,
+clearcoatRoughness: 0.05
+});
+const atom = new THREE.Mesh(
+geometry,
+material
+);
+atom.position.set(
+x,
+y,
+z
+);
+molecule.add(atom);
+// =========================
+// ぼわっとした光
+// =========================
+const glowGeometry =
+new THREE.SphereGeometry(
+size * 1.9,
+32,
+32
+);
+const glowMaterial =
+new THREE.MeshBasicMaterial({
+color: color,
+transparent: true,
 
+opacity: 0.10,
+
+blending: THREE.AdditiveBlending,
+
+depthWrite: false
+
+});
+
+const glow = new THREE.Mesh(
+glowGeometry,
+glowMaterial
+);
+
+glow.position.copy(atom.position);
+
+molecule.add(glow);
+
+
+// =========================
+// さらに外側の薄い光
+// =========================
+const outerGlowGeometry =
+new THREE.SphereGeometry(
+size * 3.2,
+32,
+32
+);
+const outerGlowMaterial =
+new THREE.MeshBasicMaterial({
+color: color,
+transparent: true,
+opacity: 0.035,
+blending: THREE.AdditiveBlending,
+depthWrite: false
+});
+const outerGlow =
+new THREE.Mesh(
+outerGlowGeometry,
+outerGlowMaterial
+);
+outerGlow.position.copy(
+atom.position
+);
+molecule.add(outerGlow);
+return atom;
+}{
+const geometry = new THREE.SphereGeometry(
+size,
+32,
+32
+);
+const material = new THREE.MeshPhysicalMaterial({
+color: color,
 emissive: 0x0284c7,
 emissiveIntensity: 1.2,
-
 metalness: 0.1,
 roughness: 0.08,
-
 transparent: true,
 opacity: 0.72,
 
@@ -276,7 +363,6 @@ z: 0,
 size: 0.55,
 color: 0x7dd3fc
 },
-
 {
 x: 1.45,
 y: 0.8,
@@ -284,7 +370,6 @@ z: 0.2,
 size: 0.34,
 color: 0x38bdf8
 },
-
 {
 x: -1.4,
 y: 0.7,
@@ -292,7 +377,6 @@ z: -0.1,
 size: 0.34,
 color: 0x60a5fa
 },
-
 {
 x: 0.8,
 y: -1.3,
@@ -300,7 +384,6 @@ z: 0.1,
 size: 0.34,
 color: 0x22d3ee
 },
-
 {
 x: -0.9,
 y: -1.2,
@@ -308,7 +391,6 @@ z: -0.2,
 size: 0.34,
 color: 0xa5f3fc
 }
-
 ];
 
 const atomObjects = atoms.map(atom => {
@@ -457,7 +539,20 @@ Math.sin(time * 0.4) * 0.08;
 // 分子全体をふわっと上下
 molecule.position.y =
 Math.sin(time * 0.8) * 0.18;
-
+// 光が呼吸するように変化
+molecule.children.forEach((object, index) => {
+if (object.material &&
+object.material.transparent) {
+const pulse =
+1 +
+Math.sin(time * 1.2 + index) * 0.04;
+object.scale.set(
+pulse,
+pulse,
+pulse
+);
+}
+});
 
 // マウスに少し反応
 molecule.rotation.y +=
