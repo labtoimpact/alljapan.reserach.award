@@ -263,15 +263,15 @@ select {
 
 .btn-outline {
   background-color: transparent;
-  color: var(--white);
+  color: var(--navy-deep);
 
-  border: 2px solid var(--white);
+  border: 2px solid var(--navy-deep);
 }
 
 
 .btn-outline:hover {
-  background-color: var(--white);
-  color: var(--navy-deep);
+  background-color: var(--navy-deep);
+  color: var(--white);
 }
 
 
