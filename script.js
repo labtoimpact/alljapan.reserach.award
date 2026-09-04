@@ -176,6 +176,7 @@ window.addEventListener("load", () => {
      ======================================================= */
 
   const scene = new THREE.Scene();
+   window.moleculeScene = scene;
 
 
   /* =======================================================
@@ -1353,3 +1354,459 @@ window.addEventListener("load", () => {
   animate();
 
 });
+/* =========================================================
+   BENZENE FALLING EFFECT
+   メイン分子には触れず、ベンゼン環だけを追加
+   ========================================================= */
+
+(function () {
+
+  function startBenzeneEffect() {
+
+    if (typeof THREE === "undefined") {
+      console.warn("Three.js が読み込まれていません。");
+      return;
+    }
+
+    if (!window.moleculeScene) {
+      console.warn("moleculeScene が見つかりません。");
+      return;
+    }
+
+    const scene = window.moleculeScene;
+
+    /* -----------------------------------------
+       設定
+       ----------------------------------------- */
+
+    const BENZENE_COUNT = 12;
+
+    // ベンゼン環の大きさ
+    // 極端に大きく・小さくしない
+    const MIN_SCALE = 0.48;
+    const MAX_SCALE = 0.72;
+
+    // 落下速度
+    const MIN_SPEED = 0.12;
+    const MAX_SPEED = 0.25;
+
+    // 左右へのゆらぎ
+    const SWAY_AMOUNT = 0.18;
+
+    const benzeneGroup = new THREE.Group();
+
+    // メイン分子より少し奥に配置
+    benzeneGroup.position.set(0, 0, -1.8);
+
+    scene.add(benzeneGroup);
+
+
+    /* -----------------------------------------
+       ベンゼン環を作る
+       ----------------------------------------- */
+
+    function createBenzene() {
+
+      const group = new THREE.Group();
+
+      const radius = 0.52;
+
+      const points = [];
+
+      for (let i = 0; i < 6; i++) {
+
+        const angle =
+          (Math.PI * 2 / 6) * i +
+          Math.PI / 6;
+
+        points.push(
+          new THREE.Vector3(
+            Math.cos(angle) * radius,
+            Math.sin(angle) * radius,
+            0
+          )
+        );
+
+      }
+
+
+      /* -----------------------------------------
+         外側の六角形
+         ----------------------------------------- */
+
+      const geometry = new THREE.BufferGeometry();
+
+      const vertices = [];
+
+      for (let i = 0; i < 6; i++) {
+
+        const a = points[i];
+        const b = points[(i + 1) % 6];
+
+        vertices.push(
+          a.x, a.y, a.z,
+          b.x, b.y, b.z
+        );
+
+      }
+
+      geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(vertices, 3)
+      );
+
+
+      const material = new THREE.LineBasicMaterial({
+        color: 0x00d2ff,
+        transparent: true,
+        opacity: 0.48,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+
+
+      const ring = new THREE.LineSegments(
+        geometry,
+        material
+      );
+
+      group.add(ring);
+
+
+      /* -----------------------------------------
+         内側のベンゼン環
+         ----------------------------------------- */
+
+      const innerGeometry = new THREE.BufferGeometry();
+
+      const innerRadius = 0.29;
+
+      const innerPoints = [];
+
+      for (let i = 0; i < 6; i++) {
+
+        const angle =
+          (Math.PI * 2 / 6) * i +
+          Math.PI / 6;
+
+        innerPoints.push(
+          new THREE.Vector3(
+            Math.cos(angle) * innerRadius,
+            Math.sin(angle) * innerRadius,
+            0.015
+          )
+        );
+
+      }
+
+      const innerVertices = [];
+
+      for (let i = 0; i < 6; i++) {
+
+        const a = innerPoints[i];
+        const b = innerPoints[(i + 1) % 6];
+
+        innerVertices.push(
+          a.x, a.y, a.z,
+          b.x, b.y, b.z
+        );
+
+      }
+
+      innerGeometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(
+          innerVertices,
+          3
+        )
+      );
+
+
+      const innerMaterial = new THREE.LineBasicMaterial({
+        color: 0x7ee8ff,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+
+
+      const innerRing = new THREE.LineSegments(
+        innerGeometry,
+        innerMaterial
+      );
+
+      group.add(innerRing);
+
+
+      /* -----------------------------------------
+         六角形の頂点に小さな光
+         ----------------------------------------- */
+
+      const vertexGeometry =
+        new THREE.SphereGeometry(
+          0.035,
+          8,
+          8
+        );
+
+      const vertexMaterial =
+        new THREE.MeshBasicMaterial({
+          color: 0x7ee8ff,
+          transparent: true,
+          opacity: 0.65
+        });
+
+
+      points.forEach(point => {
+
+        const atom =
+          new THREE.Mesh(
+            vertexGeometry,
+            vertexMaterial
+          );
+
+        atom.position.copy(point);
+
+        group.add(atom);
+
+      });
+
+
+      return group;
+    }
+
+
+    /* -----------------------------------------
+       ベンゼン環を生成
+       ----------------------------------------- */
+
+    const benzeneObjects = [];
+
+    for (
+      let i = 0;
+      i < BENZENE_COUNT;
+      i++
+    ) {
+
+      const benzene = createBenzene();
+
+      const scale =
+        MIN_SCALE +
+        Math.random() *
+        (MAX_SCALE - MIN_SCALE);
+
+      benzene.scale.set(
+        scale,
+        scale,
+        scale
+      );
+
+
+      benzene.position.set(
+
+        // 横方向
+        -3.0 +
+        Math.random() * 6.0,
+
+        // 上からスタート
+        3.0 +
+        Math.random() * 6.0,
+
+        // 奥行き
+        -1.5 +
+        Math.random() * 2.0
+
+      );
+
+
+      // 最初から少し回転
+      benzene.rotation.x =
+        Math.random() * Math.PI;
+
+      benzene.rotation.y =
+        Math.random() * Math.PI;
+
+      benzene.rotation.z =
+        Math.random() * Math.PI;
+
+
+      benzene.userData = {
+
+        speed:
+          MIN_SPEED +
+          Math.random() *
+          (MAX_SPEED - MIN_SPEED),
+
+        sway:
+          Math.random() *
+          Math.PI * 2,
+
+        swaySpeed:
+          0.25 +
+          Math.random() * 0.45,
+
+        swayAmount:
+          SWAY_AMOUNT *
+          (0.6 + Math.random() * 0.8),
+
+        rotationSpeed:
+          (Math.random() - 0.5) * 0.35,
+
+        startX:
+          benzene.position.x,
+
+        opacity:
+          0.35 +
+          Math.random() * 0.3
+
+      };
+
+
+      benzeneGroup.add(benzene);
+
+      benzeneObjects.push(benzene);
+    }
+
+
+    /* -----------------------------------------
+       落下アニメーション
+       ----------------------------------------- */
+
+    let lastTime = performance.now();
+
+    function animateBenzene(time) {
+
+      requestAnimationFrame(
+        animateBenzene
+      );
+
+      const delta =
+        Math.min(
+          (time - lastTime) / 1000,
+          0.05
+        );
+
+      lastTime = time;
+
+
+      benzeneObjects.forEach(
+        benzene => {
+
+          const data =
+            benzene.userData;
+
+
+          /* -----------------------------
+             下へ落ちる
+             ----------------------------- */
+
+          benzene.position.y -=
+            data.speed * delta;
+
+
+          /* -----------------------------
+             左右にふわっと揺れる
+             ----------------------------- */
+
+          data.sway +=
+            data.swaySpeed * delta;
+
+          benzene.position.x =
+            data.startX +
+            Math.sin(data.sway) *
+            data.swayAmount;
+
+
+          /* -----------------------------
+             ゆっくり回転
+             ----------------------------- */
+
+          benzene.rotation.z +=
+            data.rotationSpeed *
+            delta;
+
+          benzene.rotation.x +=
+            data.rotationSpeed *
+            0.35 *
+            delta;
+
+
+          /* -----------------------------
+             下まで来たら上へ戻す
+             ----------------------------- */
+
+          if (benzene.position.y < -4.0) {
+
+            benzene.position.y =
+              4.0 +
+              Math.random() * 3.0;
+
+            data.startX =
+              -3.0 +
+              Math.random() * 6.0;
+
+            benzene.position.x =
+              data.startX;
+
+            benzene.position.z =
+              -1.5 +
+              Math.random() * 2.0;
+
+            data.sway =
+              Math.random() *
+              Math.PI * 2;
+
+          }
+
+        }
+      );
+
+    }
+
+
+    animateBenzene(
+      performance.now()
+    );
+
+
+    console.log(
+      "Benzene falling effect started."
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     Three.jsの初期化を待つ
+     ----------------------------------------- */
+
+  let checkCount = 0;
+
+  const checkScene =
+    setInterval(() => {
+
+      checkCount++;
+
+      if (window.moleculeScene) {
+
+        clearInterval(checkScene);
+
+        startBenzeneEffect();
+
+      }
+
+      // 10秒以上待たない
+      if (checkCount > 100) {
+
+        clearInterval(checkScene);
+
+        console.warn(
+          "ベンゼン環エフェクトを開始できませんでした。"
+        );
+
+      }
+
+    }, 100);
+
+})();
