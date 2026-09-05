@@ -1,1829 +1,1512 @@
-/* =========================================================
-   Lab to Impact - script.js
-   サイト全体の動き + Hero 3D Molecule
-   ========================================================= */
+<!DOCTYPE html>
+<html lang="ja">
 
-document.addEventListener("DOMContentLoaded", () => {
+<head>
+  <meta charset="UTF-8">
 
-  /* =======================================================
-     Mobile Menu
-     ======================================================= */
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  const menuToggle = document.getElementById("menuToggle");
-  const nav = document.getElementById("nav");
+  <title>
+    全国高校生研究論文大賞 2026 | Lab to Impact
+  </title>
 
-  if (menuToggle && nav) {
+  <meta
+    name="description"
+    content="全国の高校生・高専生を対象とした「全国高校生研究論文大賞2026」。自然科学・工学分野の研究論文を募集し、学術的完成度だけでなく社会的価値も評価します。"
+  >
 
-    menuToggle.addEventListener("click", () => {
-      nav.classList.toggle("active");
-    });
+  <!-- CSS -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
-    // メニュー内のリンクをクリックしたら閉じる
-    const navLinks = nav.querySelectorAll("a");
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    navLinks.forEach(link => {
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
-      link.addEventListener("click", () => {
-        nav.classList.remove("active");
-      });
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=Orbitron:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
 
-    });
+</head>
 
-  }
 
+<body>
 
-  /* =======================================================
-     FAQ Accordion
-     ======================================================= */
 
-  const faqItems = document.querySelectorAll(".faq-item");
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
 
-  faqItems.forEach(item => {
+  <header
+    class="header"
+    id="header"
+  >
 
-    const question = item.querySelector(".faq-question");
+    <div class="container header-container">
 
-    if (!question) return;
 
-    question.addEventListener("click", () => {
+      <!-- Logo -->
 
-      // 他のFAQを閉じる
-      faqItems.forEach(otherItem => {
+      <a
+        href="#home"
+        class="logo"
+      >
 
-        if (otherItem !== item) {
-          otherItem.classList.remove("active");
-        }
+        <span class="logo-title">
+          全国高校生研究論文大賞 2026
+        </span>
 
-      });
+        <span class="logo-sub">
+          ALL HIGH SCHOOL STUDENTS RESEARCH AWARDS
+        </span>
 
-      // クリックしたFAQを開閉
-      item.classList.toggle("active");
+      </a>
 
-    });
 
-  });
+      <!-- Navigation -->
 
+      <nav
+        class="nav"
+        id="nav"
+      >
 
-  /* =======================================================
-     Smooth Scroll
-     ======================================================= */
+        <ul class="nav-list">
 
-  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+          <li>
+            <a href="#about">
+              大会について
+            </a>
+          </li>
 
-  anchorLinks.forEach(link => {
+          <li>
+            <a href="#prize">
+              賞・賞金
+            </a>
+          </li>
 
-    link.addEventListener("click", event => {
+          <li>
+            <a href="#judging">
+              審査基準
+            </a>
+          </li>
 
-      const targetId = link.getAttribute("href");
+          <li>
+            <a href="#schedule">
+              スケジュール
+            </a>
+          </li>
 
-      if (!targetId || targetId === "#") return;
+          <li>
+            <a href="#entry">
+              応募方法
+            </a>
+          </li>
 
-      const target = document.querySelector(targetId);
+          <li>
+            <a href="#download">
+              応募書類
+            </a>
+          </li>
 
-      if (!target) return;
+          <li>
+            <a href="#rules">
+              応募規定
+            </a>
+          </li>
 
-      event.preventDefault();
+          <li>
+            <a href="#faq">
+              FAQ
+            </a>
+          </li>
 
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+        </ul>
 
-    });
+      </nav>
 
-  });
 
-});
+      <!-- Header Action -->
 
+      <div class="header-action">
 
-/* =========================================================
-   Scroll Reveal Animation
-   ========================================================= */
+        <a
+          href="#entry"
+          class="btn btn-primary btn-sm"
+        >
+          応募する
+        </a>
 
-document.addEventListener("DOMContentLoaded", () => {
 
-  const elements = document.querySelectorAll(
-    "section h2, section h3, section p, section .card, section .btn, section li, section table, section img"
-  );
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="メニューを開閉"
+        >
 
-  elements.forEach(element => {
-    element.classList.add("reveal");
-  });
+          <span></span>
+          <span></span>
+          <span></span>
 
+        </button>
 
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
+      </div>
 
-      entries.forEach(entry => {
 
-        if (entry.isIntersecting) {
+    </div>
 
-          entry.target.classList.add("show");
+  </header>
 
-          observer.unobserve(entry.target);
 
-        }
 
-      });
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
 
-    },
-    {
-      threshold: 0.12
-    }
-  );
+  <section
+    class="hero"
+    id="home"
+  >
 
 
-  document.querySelectorAll(".reveal").forEach(element => {
-    revealObserver.observe(element);
-  });
+    <!-- Background -->
 
-});
+    <div class="hero-bg"></div>
 
 
-/* =========================================================
-   HERO
-   3D MOLECULE + FLOATING LIGHT PARTICLES
-   ========================================================= */
+    <!-- Decorative network -->
 
-window.addEventListener("load", () => {
+    <div class="hero-network"></div>
 
-  // Three.jsが読み込まれていない場合は何もしない
-  if (typeof THREE === "undefined") {
 
-    console.warn("Three.js が読み込まれていません。");
+    <!-- Three.js -->
 
-    return;
+    <div
+      id="molecule-container"
+      aria-hidden="true"
+    ></div>
 
-  }
 
+    <!-- Hero Content -->
 
-  const container =
-    document.getElementById("molecule-container");
+    <div class="container hero-container">
 
 
-  if (!container) {
+      <!-- Badge -->
 
-    console.warn(
-      "#molecule-container が見つかりません。"
-    );
+      <div class="hero-badge">
 
-    return;
+        全国高校生研究論文大賞 2026
 
-  }
+      </div>
 
 
-  /* =======================================================
-     Scene
-     ======================================================= */
+      <!-- English title -->
 
-  const scene = new THREE.Scene();
-   window.moleculeScene = scene;
+      <p class="hero-en">
 
+        ALL HIGH SCHOOL STUDENTS RESEARCH AWARDS
 
-  /* =======================================================
-     Camera
-     ======================================================= */
+      </p>
 
-  const camera =
-    new THREE.PerspectiveCamera(
-      45,
-      container.clientWidth /
-        container.clientHeight,
-      0.1,
-      100
-    );
 
-  camera.position.set(
-    0,
-    0,
-    8
-  );
+      <!-- Main title -->
 
+      <h1 class="hero-title">
 
-  /* =======================================================
-     Renderer
-     ======================================================= */
+        あなたの
+        <span class="title-blue">研究</span>
+        が、<br>
 
-  const renderer =
-    new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true
-    });
+        社会を変える一歩へ。
 
+      </h1>
 
-  renderer.setPixelRatio(
-    Math.min(
-      window.devicePixelRatio,
-      2
-    )
-  );
 
+      <!-- Description -->
 
-  renderer.setSize(
-    container.clientWidth,
-    container.clientHeight
-  );
+      <p class="hero-lead">
 
+        Lab to Impact(LTI)は、高校生の自然科学・工学分野における探究・研究活動を対象とした論文大会を開催します。<br>
 
-  renderer.setClearColor(
-    0x000000,
-    0
-  );
+        研究の完成度だけではなく、実現可能性や社会的意義の視点を重視し、研究と社会をつなぐエコシステムの実現を目指します。
 
+      </p>
 
-  container.appendChild(
-    renderer.domElement
-  );
 
+      <!-- CTA -->
 
-  /* =======================================================
-     Lights
-     ======================================================= */
+      <div class="hero-cta">
 
-  const ambientLight =
-    new THREE.AmbientLight(
-      0x7ddfff,
-      1.0
-    );
+        <a
+          href="#entry"
+          class="btn btn-primary btn-lg"
+        >
+          応募する
+          <span class="btn-arrow">›</span>
+        </a>
 
-  scene.add(
-    ambientLight
-  );
 
+        <a
+          href="#download"
+          class="btn btn-secondary btn-lg"
+        >
+          募集要項を見る
+          <span class="btn-arrow">›</span>
+        </a>
 
-  const cyanLight =
-    new THREE.PointLight(
-      0x00d2ff,
-      2.5,
-      12
-    );
 
-  cyanLight.position.set(
-    2,
-    2,
-    4
-  );
+        <a
+          href="#download"
+          class="btn btn-outline btn-lg"
+        >
+          応募書類をダウンロード
+          <span class="btn-arrow">›</span>
+        </a>
 
-  scene.add(
-    cyanLight
-  );
+      </div>
 
 
-  const blueLight =
-    new THREE.PointLight(
-      0x3a86ff,
-      2.0,
-      10
-    );
+    </div>
 
-  blueLight.position.set(
-    -3,
-    -1,
-    2
-  );
 
-  scene.add(
-    blueLight
-  );
+  </section>
 
 
-  const softLight =
-    new THREE.PointLight(
-      0x7ee8ff,
-      1.5,
-      8
-    );
 
-  softLight.position.set(
-    0,
-    3,
-    -2
-  );
+  <!-- =====================================================
+       ABOUT
+       ===================================================== -->
 
-  scene.add(
-    softLight
-  );
+  <section
+    class="section"
+    id="about"
+  >
 
+    <div class="container">
 
-  /* =======================================================
-     Molecule Group
-     ======================================================= */
 
-  const molecule =
-    new THREE.Group();
+      <div class="section-header">
 
+        <span class="section-tag">
+          ABOUT
+        </span>
 
-  molecule.position.set(
-    1.35,
-    0.15,
-    0
-  );
+        <h2 class="section-title">
+          大会について
+        </h2>
 
+        <p class="section-desc">
+          本大会が大切にする思想と、募集の概要について
+        </p>
 
-  molecule.scale.set(
-    1.15,
-    1.15,
-    1.15
-  );
+      </div>
 
 
-  scene.add(
-    molecule
-  );
+      <div class="about-grid">
 
 
-  /* =======================================================
-     Atom Creation
-     ======================================================= */
+        <div class="about-card">
 
-  function createAtom(
-    radius,
-    color,
-    emissiveColor,
-    position
-  ) {
+          <h3>
+            大会の理念・評価方針
+          </h3>
 
-    const geometry =
-      new THREE.SphereGeometry(
-        radius,
-        32,
-        32
-      );
+          <p>
+            研究の完成度だけではなく、研究が持つ「実現可能性」や「社会的意義」も重視します。単に「よくできた研究」を表彰するのではなく、「高校生の研究と社会をつなぐ」ことを目指す大会です。
+          </p>
 
+        </div>
 
-    const material =
-      new THREE.MeshStandardMaterial({
 
-        color: color,
+        <div class="about-card">
 
-        emissive: emissiveColor,
+          <h3>
+            対象・形式
+          </h3>
 
-        emissiveIntensity: 0.7,
+          <ul class="about-list">
 
-        roughness: 0.25,
+            <li>
+              <span>対象</span>
+              全国の高校生・高専生
+            </li>
 
-        metalness: 0.15,
+            <li>
+              <span>応募形式</span>
+              個人またはグループ
+            </li>
 
-        transparent: true,
+            <li>
+              <span>研究テーマ</span>
+              自由テーマ（science）
+            </li>
 
-        opacity: 0.96
+            <li>
+              <span>言語</span>
+              日本語または英語
+            </li>
 
-      });
+            <li>
+              <span>対象分野</span>
+              自然科学・工学分野
+            </li>
 
+          </ul>
 
-    const atom =
-      new THREE.Mesh(
-        geometry,
-        material
-      );
+        </div>
 
 
-    atom.position.copy(
-      position
-    );
+      </div>
 
 
-    molecule.add(
-      atom
-    );
+      <div class="feature-icons">
 
 
-    return atom;
+        <div class="feature-item">
 
-  }
+          <div class="feature-icon-circle">
+            🔬
+          </div>
 
+          <h4>
+            自然科学・工学分野の研究・探究が対象
+          </h4>
 
-  /* =======================================================
-     Bond Creation
-     ======================================================= */
+        </div>
 
-  function createBond(
-    start,
-    end,
-    radius = 0.025
-  ) {
 
-    const direction =
-      new THREE.Vector3()
-        .subVectors(
-          end,
-          start
-        );
+        <div class="feature-item">
 
+          <div class="feature-icon-circle">
+            🌐
+          </div>
 
-    const length =
-      direction.length();
+          <h4>
+            研究テーマ自由
+          </h4>
 
+        </div>
 
-    const geometry =
-      new THREE.CylinderGeometry(
-        radius,
-        radius,
-        length,
-        16
-      );
 
+        <div class="feature-item">
 
-    const material =
-      new THREE.MeshStandardMaterial({
+          <div class="feature-icon-circle">
+            👥
+          </div>
 
-        color: 0x00d2ff,
+          <h4>
+            全国の高校生・高専生が対象
+          </h4>
 
-        emissive: 0x00d2ff,
+        </div>
 
-        emissiveIntensity: 0.65,
 
-        transparent: true,
+        <div class="feature-item">
 
-        opacity: 0.72
+          <div class="feature-icon-circle">
+            📖
+          </div>
 
-      });
+          <h4>
+            学術的完成度と社会的価値を評価
+          </h4>
 
+        </div>
 
-    const bond =
-      new THREE.Mesh(
-        geometry,
-        material
-      );
 
+      </div>
 
-    const midpoint =
-      new THREE.Vector3()
-        .addVectors(
-          start,
-          end
-        )
-        .multiplyScalar(
-          0.5
-        );
 
+    </div>
 
-    bond.position.copy(
-      midpoint
-    );
+  </section>
 
 
-    // Cylinderの初期方向はY軸
-    bond.quaternion.setFromUnitVectors(
-      new THREE.Vector3(
-        0,
-        1,
-        0
-      ),
-      direction.normalize()
-    );
 
+  <!-- =====================================================
+       PRIZE
+       ===================================================== -->
 
-    molecule.add(
-      bond
-    );
+  <section
+    class="section bg-light"
+    id="prize"
+  >
 
+    <div class="container">
 
-    return bond;
 
-  }
+      <div class="section-header">
 
+        <span class="section-tag">
+          PRIZE
+        </span>
 
-  /* =======================================================
-     Molecule Structure
-     ======================================================= */
+        <h2 class="section-title">
+          賞・賞金
+        </h2>
 
-  const centerPosition =
-    new THREE.Vector3(
-      0,
-      0,
-      0
-    );
+        <p class="section-desc">
+          優れた研究を表彰し、次なる挑戦をサポートします
+        </p>
 
+      </div>
 
-  const atomPositions = [
 
-    new THREE.Vector3(
-      1.25,
-      0.45,
-      0.20
-    ),
+      <div class="prize-container">
 
-    new THREE.Vector3(
-      -1.15,
-      0.55,
-      -0.15
-    ),
 
-    new THREE.Vector3(
-      0.25,
-      -1.20,
-      0.35
-    ),
+        <div class="prize-total">
 
-    new THREE.Vector3(
-      0.15,
-      0.15,
-      -1.35
-    )
+          <span class="prize-total-label">
+            総額
+          </span>
 
-  ];
+          <span class="prize-total-amount">
+            10<span class="unit">万円</span>
+          </span>
 
+        </div>
 
-  /* =======================================================
-     Center Atom
-     ======================================================= */
 
-  const centerAtom =
-    createAtom(
-      0.42,
-      0x00d2ff,
-      0x00d2ff,
-      centerPosition
-    );
+        <div class="prize-grid">
 
 
-  /* =======================================================
-     Outer Atoms
-     ======================================================= */
+          <div class="prize-card featured">
 
-  const outerAtoms = [];
+            <div class="prize-rank">
+              最優秀賞 (1件)
+            </div>
 
+            <div class="prize-money">
+              30,000<span>円</span>
+            </div>
 
-  atomPositions.forEach(
-    (position, index) => {
+          </div>
 
-      const atom =
-        createAtom(
-          index % 2 === 0
-            ? 0.28
-            : 0.23,
 
-          index % 2 === 0
-            ? 0x3a86ff
-            : 0x7ee8ff,
+          <div class="prize-card">
 
-          0x00d2ff,
+            <div class="prize-rank">
+              優秀賞 (2件)
+            </div>
 
-          position
-        );
+            <div class="prize-money">
+              20,000<span>円</span>
+            </div>
 
+          </div>
 
-      outerAtoms.push(
-        atom
-      );
 
+          <div class="prize-card">
 
-      createBond(
-        centerPosition,
-        position,
-        0.025
-      );
+            <div class="prize-rank">
+              奨励賞 (5件)
+            </div>
 
-    }
-  );
+            <div class="prize-money">
+              10,000<span>円</span>
+            </div>
 
+          </div>
 
-  /* =======================================================
-     Extra Small Bonds
-     ======================================================= */
 
-  createBond(
-    atomPositions[0],
-    atomPositions[2],
-    0.015
-  );
+        </div>
 
+      </div>
 
-  createBond(
-    atomPositions[1],
-    atomPositions[3],
-    0.015
-  );
 
+    </div>
 
-  /* =======================================================
-     Background Particle System
-     ======================================================= */
+  </section>
 
-  const particleCount = 320;
 
 
-  const particlePositions =
-    new Float32Array(
-      particleCount * 3
-    );
+  <!-- =====================================================
+       JUDGING
+       ===================================================== -->
 
+  <section
+    class="section"
+    id="judging"
+  >
 
-  for (
-    let i = 0;
-    i < particleCount;
-    i++
-  ) {
+    <div class="container">
 
-    const i3 =
-      i * 3;
 
+      <div class="section-header">
 
-    particlePositions[i3] =
-      (Math.random() - 0.5) * 7;
+        <span class="section-tag">
+          JUDGING
+        </span>
 
+        <h2 class="section-title">
+          審査基準
+        </h2>
 
-    particlePositions[i3 + 1] =
-      (Math.random() - 0.5) * 5;
+        <p class="section-desc">
+          100点満点による多角的な評価システム
+        </p>
 
+      </div>
 
-    particlePositions[i3 + 2] =
-      (Math.random() - 0.5) * 7;
 
-  }
+      <div class="judging-content">
 
 
-  const particleGeometry =
-    new THREE.BufferGeometry();
+        <div class="judging-summary">
 
+          <div class="score-circle">
 
-  particleGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(
-      particlePositions,
-      3
-    )
-  );
+            <span class="score-total">
+              100
+            </span>
 
+            <span class="score-label">
+              POINTS
+            </span>
 
-  /* =======================================================
-     Background Particle Material
-     ======================================================= */
+          </div>
 
-  const particleMaterial =
-    new THREE.PointsMaterial({
+        </div>
 
-      color: 0x7ee8ff,
 
-      size: 0.045,
+        <div class="judging-details">
 
-      transparent: true,
 
-      opacity: 0.52,
+          <div class="judging-category">
 
-      depthWrite: false,
+            <h3>
+              学術・論理の質（50点）
+            </h3>
 
-      blending:
-        THREE.AdditiveBlending,
+            <ul>
 
-      sizeAttenuation: true
+              <li>
+                新規性
+                <span>15点</span>
+              </li>
 
-    });
+              <li>
+                再現性・手法の妥当性
+                <span>20点</span>
+              </li>
 
+              <li>
+                発展性・将来の展望
+                <span>15点</span>
+              </li>
 
-  const particles =
-    new THREE.Points(
-      particleGeometry,
-      particleMaterial
-    );
+            </ul>
 
+          </div>
 
-  particles.position.set(
-    0,
-    0,
-    -0.5
-  );
 
+          <div class="judging-category">
 
-  scene.add(
-    particles
-  );
+            <h3>
+              社会的価値（25点）
+            </h3>
 
+            <ul>
 
-  /* =======================================================
-     Soft Glow Particles
-     =======================================================
-     
-     ここが「ぽわぽわ」のメインです。
-     
-     普通の小さな粒ではなく、
-     分子の周囲をゆっくり漂う発光粒子を作ります。
-     ======================================================= */
+              <li>
+                社会的意義
+                <span>25点</span>
+              </li>
 
-  const glowCount = 42;
+            </ul>
 
+          </div>
 
-  const glowPositions =
-    new Float32Array(
-      glowCount * 3
-    );
 
+          <div class="judging-category">
 
-  const glowBasePositions = [];
+            <h3>
+              完成度・伝達力（25点）
+            </h3>
 
+            <ul>
 
-  for (
-    let i = 0;
-    i < glowCount;
-    i++
-  ) {
+              <li>
+                表現・図の適切性
+                <span>10点</span>
+              </li>
 
-    const i3 =
-      i * 3;
+              <li>
+                論理の一貫性と構成
+                <span>15点</span>
+              </li>
 
+            </ul>
 
-    /*
-     * 分子周辺を中心に配置
-     *
-     * 完全なランダムではなく、
-     * 少し広がった楕円形の範囲にします。
-     */
+          </div>
 
-    const angle =
-      Math.random() *
-      Math.PI *
-      2;
 
+        </div>
 
-    const radius =
-      1.5 +
-      Math.random() * 2.4;
 
+      </div>
 
-    const x =
-      1.0 +
-      Math.cos(angle) *
-      radius *
-      1.15;
 
+    </div>
 
-    const y =
-      Math.sin(angle) *
-      radius *
-      0.72;
+  </section>
 
 
-    const z =
-      (Math.random() - 0.5) *
-      2.5;
 
+  <!-- =====================================================
+       SCHEDULE
+       ===================================================== -->
 
-    glowPositions[i3] =
-      x;
+  <section
+    class="section bg-light"
+    id="schedule"
+  >
 
+    <div class="container">
 
-    glowPositions[i3 + 1] =
-      y;
 
+      <div class="section-header">
 
-    glowPositions[i3 + 2] =
-      z;
+        <span class="section-tag">
+          SCHEDULE
+        </span>
 
+        <h2 class="section-title">
+          スケジュール
+        </h2>
 
-    glowBasePositions.push({
+        <p class="section-desc">
+          募集から結果発表までのタイムライン
+        </p>
 
-      x: x,
+      </div>
 
-      y: y,
 
-      z: z,
+      <div class="timeline">
 
-      phase:
-        Math.random() *
-        Math.PI *
-        2,
 
-      speed:
-        0.25 +
-        Math.random() *
-        0.45,
+        <div class="timeline-item">
 
-      amplitude:
-        0.06 +
-        Math.random() *
-        0.14,
+          <div class="timeline-date">
+            2026/9/10 〜 11/1
+          </div>
 
-      size:
-        0.08 +
-        Math.random() *
-        0.13
+          <div class="timeline-content">
 
-    });
+            <h3>
+              論文募集期間
+            </h3>
 
-  }
+            <p>
+              研究論文および応募書類の受付を行います。
+            </p>
 
+          </div>
 
-  const glowGeometry =
-    new THREE.BufferGeometry();
+        </div>
 
 
-  glowGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(
-      glowPositions,
-      3
-    )
-  );
+        <div class="timeline-item">
 
+          <div class="timeline-date">
+            2026/11/2 〜 11/30
+          </div>
 
-  /*
-   * 発光用の丸い粒
-   *
-   * AdditiveBlendingによって
-   * 淡い青い光として背景に重なります。
-   */
+          <div class="timeline-content">
 
-  const glowMaterial =
-    new THREE.PointsMaterial({
+            <h3>
+              論文審査
+            </h3>
 
-      color: 0x00d2ff,
+            <p>
+              審査基準に基づき、厳正な審査を実施します。
+            </p>
 
-      size: 0.20,
+          </div>
 
-      transparent: true,
+        </div>
 
-      opacity: 0.32,
 
-      depthWrite: false,
+        <div class="timeline-item">
 
-      blending:
-        THREE.AdditiveBlending,
+          <div class="timeline-date">
+            2026/12/1 〜 12/3
+          </div>
 
-      sizeAttenuation: true
+          <div class="timeline-content">
 
-    });
+            <h3>
+              結果確定・受賞者へメール
+            </h3>
 
+            <p>
+              受賞者の方へ個別にご連絡いたします。
+            </p>
 
-  const glowParticles =
-    new THREE.Points(
-      glowGeometry,
-      glowMaterial
-    );
+          </div>
 
+        </div>
 
-  glowParticles.position.set(
-    0,
-    0,
-    -0.7
-  );
 
+        <div class="timeline-item">
 
-  scene.add(
-    glowParticles
-  );
+          <div class="timeline-date">
+            2026/12/4
+          </div>
 
+          <div class="timeline-content">
 
-  /* =======================================================
-     Extra Large Soft Halo
-     =======================================================
-     
-     分子の周囲に「光の空気感」を追加します。
-     ======================================================= */
+            <h3>
+              受賞者発表
+            </h3>
 
-  const haloGeometry =
-    new THREE.BufferGeometry();
+            <p>
+              公式サイトおよびSNS等で結果を発表します。
+            </p>
 
+          </div>
 
-  const haloPosition =
-    new Float32Array([
-      1.1,
-      0.1,
-      -1.2
-    ]);
+        </div>
 
 
-  haloGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(
-      haloPosition,
-      3
-    )
-  );
+        <div class="timeline-item">
 
+          <div class="timeline-date">
+            2026/12/5 〜
+          </div>
 
-  const haloMaterial =
-    new THREE.PointsMaterial({
+          <div class="timeline-content">
 
-      color: 0x7ee8ff,
+            <h3>
+              学校インタビュー
+            </h3>
 
-      size: 1.15,
+            <p>
+              受賞者の学校へインタビュー等を実施予定です。
+            </p>
 
-      transparent: true,
+          </div>
 
-      opacity: 0.09,
+        </div>
 
-      depthWrite: false,
 
-      blending:
-        THREE.AdditiveBlending,
+      </div>
 
-      sizeAttenuation: true
 
-    });
+    </div>
 
+  </section>
 
-  const halo =
-    new THREE.Points(
-      haloGeometry,
-      haloMaterial
-    );
 
 
-  scene.add(
-    halo
-  );
+  <!-- =====================================================
+       ENTRY
+       ===================================================== -->
 
+  <section
+    class="section"
+    id="entry"
+  >
 
-  /* =======================================================
-     Mouse Interaction
-     ======================================================= */
+    <div class="container">
 
-  let mouseX = 0;
-  let mouseY = 0;
 
-  let targetMouseX = 0;
-  let targetMouseY = 0;
+      <div class="section-header">
 
+        <span class="section-tag">
+          ENTRY
+        </span>
 
-  window.addEventListener(
-    "mousemove",
-    event => {
+        <h2 class="section-title">
+          応募方法
+        </h2>
 
-      targetMouseX =
-        event.clientX /
-        window.innerWidth -
-        0.5;
+        <p class="section-desc">
+          4つのステップで簡単に応募できます
+        </p>
 
+      </div>
 
-      targetMouseY =
-        event.clientY /
-        window.innerHeight -
-        0.5;
 
-    }
-  );
+      <div class="step-grid">
 
 
-  /* =======================================================
-     Resize
-     ======================================================= */
+        <div class="step-card">
 
-  function resize() {
+          <div class="step-num">
+            STEP 01
+          </div>
 
-    const width =
-      container.clientWidth;
+          <h3>
+            応募書類のダウンロード
+          </h3>
 
+          <p>
+            「応募書類」セクションから作品応募票のコピーをダウンロードしてください。
+          </p>
 
-    const height =
-      container.clientHeight;
+        </div>
 
 
-    if (
-      width === 0 ||
-      height === 0
-    ) {
+        <div class="step-card">
 
-      return;
+          <div class="step-num">
+            STEP 02
+          </div>
 
-    }
+          <h3>
+            ファイル名の準備
+          </h3>
 
+          <p>
+            記入した作品応募票およびPDF化した研究論文のファイル名を指定の形式に変更してください。<br>
 
-    camera.aspect =
-      width / height;
+            <strong>
+              作品応募票_○○高校_代表者名.pdf
+            </strong>
 
+            <br>
 
-    camera.updateProjectionMatrix();
+            <strong>
+              論文_○○高校_代表者名.pdf
+            </strong>
 
+          </p>
 
-    renderer.setSize(
-      width,
-      height
-    );
+        </div>
 
-  }
 
+        <div class="step-card">
 
-  window.addEventListener(
-    "resize",
-    resize
-  );
+          <div class="step-num">
+            STEP 03
+          </div>
 
+          <h3>
+            メールで送信
+          </h3>
 
-  resize();
+          <p>
 
+            専用メールアドレスへ添付して送信してください。<br>
 
-  /* =======================================================
-     Animation
-     ======================================================= */
+            <a
+              href="mailto:labtoimpact.group@gmail.com"
+              class="mail-link"
+            >
+              labtoimpact.group@gmail.com
+            </a>
 
-  const clock =
-    new THREE.Clock();
+          </p>
 
+        </div>
 
-  function animate() {
 
-    requestAnimationFrame(
-      animate
-    );
+        <div class="step-card">
 
+          <div class="step-num">
+            STEP 04
+          </div>
 
-    const elapsed =
-      clock.getElapsedTime();
+          <h3>
+            受付完了の確認
+          </h3>
 
+          <p>
+            受付完了メールの受領を確認して応募完了となります。
+          </p>
 
-    /* -----------------------------------------------------
-       Mouse easing
-       ----------------------------------------------------- */
+        </div>
 
-    mouseX +=
-      (
-        targetMouseX -
-        mouseX
-      ) * 0.025;
 
+      </div>
 
-    mouseY +=
-      (
-        targetMouseY -
-        mouseY
-      ) * 0.025;
 
+    </div>
 
-    /* -----------------------------------------------------
-       Molecule floating
-       ----------------------------------------------------- */
+  </section>
 
-   /* -----------------------------------------------------
-   Molecule Rotation
-   自動回転 + マウス追従
-   ----------------------------------------------------- */
 
-const autoRotation =
-  elapsed * 0.28;
 
-/* マウス位置から回転角を作る */
+  <!-- =====================================================
+       DOWNLOAD
+       ===================================================== -->
 
-const targetRotationY =
-  autoRotation +
-  mouseX * 0.75;
+  <section
+    class="section bg-light"
+    id="download"
+  >
 
-const targetRotationX =
-  Math.sin(elapsed * 0.45) * 0.10 +
-  mouseY * 0.45;
+    <div class="container">
 
 
-/* なめらかに追従 */
+      <div class="section-header">
 
-molecule.rotation.y +=
-  (targetRotationY - molecule.rotation.y) * 0.035;
+        <span class="section-tag">
+          DOWNLOAD
+        </span>
 
-molecule.rotation.x +=
-  (targetRotationX - molecule.rotation.x) * 0.035;
+        <h2 class="section-title">
+          応募書類
+        </h2>
 
-    molecule.position.y =
-      0.15 +
-      Math.sin(
-        elapsed * 0.8
-      ) * 0.16;
+        <p class="section-desc">
+          応募に必要な各種ファイルはこちらからダウンロードできます
+        </p>
 
+      </div>
 
-    molecule.position.x =
-      1.35 +
-      mouseX * 0.35;
 
+      <div class="download-grid">
 
-    molecule.position.z =
-      mouseY * 0.25;
 
+        <div class="download-card">
 
-    /* -----------------------------------------------------
-       Subtle molecule breathing
-       ----------------------------------------------------- */
+          <h3>
+            募集要項
+          </h3>
 
-    const breathe =
-      1 +
-      Math.sin(
-        elapsed * 1.15
-      ) * 0.025;
+          <p>
+            大会の詳細なルールや注意事項が記載されています。
+          </p>
 
+          <div class="download-actions">
 
-    molecule.scale.set(
-      1.15 * breathe,
-      1.15 * breathe,
-      1.15 * breathe
-    );
+            <a
+              href="/files/application-guidelines.pdf"
+              target="_blank"
+              class="btn btn-outline btn-sm"
+            >
+              PDFを見る
+            </a>
 
+            <a
+              href="/files/application-guidelines.pdf"
+              download
+              class="btn btn-primary btn-sm"
+            >
+              ダウンロード
+            </a>
 
-    /* -----------------------------------------------------
-       Atom pulsing
-       ----------------------------------------------------- */
+          </div>
 
-    centerAtom.scale.setScalar(
-      1 +
-      Math.sin(
-        elapsed * 1.8
-      ) * 0.08
-    );
+        </div>
 
 
-    outerAtoms.forEach(
-      (atom, index) => {
+        <div class="download-card">
 
-        const phase =
-          elapsed * 1.25 +
-          index * 0.8;
+          <h3>
+            作品応募票
+          </h3>
 
+          <p>
+            応募時に必要となる記入用の応募票です。
+          </p>
 
-        const scale =
-          1 +
-          Math.sin(
-            phase
-          ) * 0.055;
+          <div class="download-actions">
 
+            <a
+              href="/files/application-form.pdf"
+              target="_blank"
+              class="btn btn-outline btn-sm"
+            >
+              PDFを見る
+            </a>
 
-        atom.scale.setScalar(
-          scale
-        );
+            <a
+              href="/files/application-form.pdf"
+              download
+              class="btn btn-primary btn-sm"
+            >
+              ダウンロード
+            </a>
 
-      }
-    );
+          </div>
 
+        </div>
 
-    /* -----------------------------------------------------
-       Background Particles
-       ----------------------------------------------------- */
 
-    particles.rotation.y =
-      elapsed * 0.018;
+      </div>
 
 
-    particles.rotation.x =
-      Math.sin(
-        elapsed * 0.12
-      ) * 0.025;
+    </div>
 
+  </section>
 
-    particles.position.x =
-      mouseX * 0.18;
 
 
-    particles.position.y =
-      mouseY * 0.12;
+  <!-- =====================================================
+       RULES
+       ===================================================== -->
 
+  <section
+    class="section"
+    id="rules"
+  >
 
-    /* -----------------------------------------------------
-       Glow Particle Rotation
-       ----------------------------------------------------- */
+    <div class="container">
 
-    glowParticles.rotation.y =
-      -elapsed * 0.025;
 
+      <div class="section-header">
 
-    glowParticles.rotation.x =
-      elapsed * 0.012;
+        <span class="section-tag">
+          RULES
+        </span>
 
+        <h2 class="section-title">
+          応募規定・注意事項
+        </h2>
 
-    glowParticles.position.x =
-      mouseX * 0.25;
+        <p class="section-desc">
+          ご応募の前に必ずご確認ください
+        </p>
 
+      </div>
 
-    glowParticles.position.y =
-      mouseY * 0.18;
 
+      <div class="rules-box">
 
-    /* -----------------------------------------------------
-       Glow Particle Floating
-       -----------------------------------------------------
-       
-       粒子それぞれが違う速度で
-       ゆっくり上下・左右に漂います。
-       ----------------------------------------------------- */
+        <ul>
 
-    const glowPositionAttribute =
-      glowGeometry.attributes.position;
+          <li>
+            <strong>応募資格：</strong>
+            全国の高校生・高専生
+          </li>
 
+          <li>
+            <strong>応募形式：</strong>
+            個人またはグループ
+          </li>
 
-    for (
-      let i = 0;
-      i < glowCount;
-      i++
-    ) {
+          <li>
+            <strong>研究分野：</strong>
+            自然科学・工学分野（自由テーマ）
+          </li>
 
-      const data =
-        glowBasePositions[i];
+          <li>
+            <strong>言語：</strong>
+            日本語または英語
+          </li>
 
+          <li>
+            <strong>研究倫理：</strong>
+            研究の遂行にあたっては、倫理的配慮を十分に行ってください。
+          </li>
 
-      const i3 =
-        i * 3;
+          <li>
+            <strong>著作権：</strong>
+            応募論文の著作権は原則として著者に帰属しますが。
+          </li>
 
+          <li>
+            <strong>参考文献・第三者の著作物：</strong>
+            引用元や参考文献、第三者の著作物を参考にした場合は必ず明記してください。
+          </li>
 
-      glowPositionAttribute.array[i3] =
-        data.x +
-        Math.sin(
-          elapsed *
-            data.speed +
-            data.phase
-        ) *
-        data.amplitude;
+          <li>
+            <strong>虚偽・不正・剽窃：</strong>
+            研究内容の虚偽・不正、または剽窃が確認された場合は審査対象外とし、受賞後であっても取り消すことがあります。
+          </li>
 
+          <li>
+            <strong>その他：</strong>
+            各賞は、研究の完成度の観点から場合によっては審査員の判断により「該当無し」とすることがあります。詳細および重要事項は必ず募集要項PDFをご確認ください。
+          </li>
 
-      glowPositionAttribute.array[i3 + 1] =
-        data.y +
-        Math.cos(
-          elapsed *
-            data.speed *
-            0.8 +
-            data.phase
-        ) *
-        data.amplitude;
+        </ul>
 
+      </div>
 
-      glowPositionAttribute.array[i3 + 2] =
-        data.z +
-        Math.sin(
-          elapsed *
-            data.speed *
-            0.6 +
-            data.phase
-        ) *
-        data.amplitude *
-        0.5;
 
-    }
+    </div>
 
+  </section>
 
-    glowPositionAttribute.needsUpdate =
-      true;
 
 
-    /* -----------------------------------------------------
-       Glow Breathing
-       ----------------------------------------------------- */
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
 
-    glowMaterial.opacity =
-      0.23 +
-      Math.sin(
-        elapsed * 0.7
-      ) * 0.09;
+  <section
+    class="section bg-light"
+    id="faq"
+  >
 
+    <div class="container">
 
-    /*
-     * 大きな光もゆっくり呼吸
-     */
 
-    const haloScale =
-      1 +
-      Math.sin(
-        elapsed * 0.55
-      ) * 0.12;
+      <div class="section-header">
 
+        <span class="section-tag">
+          FAQ
+        </span>
 
-    halo.scale.set(
-      haloScale,
-      haloScale,
-      haloScale
-    );
+        <h2 class="section-title">
+          よくあるご質問
+        </h2>
 
+        <p class="section-desc">
+          皆様からよく寄せられるご質問と回答
+        </p>
 
-    haloMaterial.opacity =
-      0.065 +
-      Math.sin(
-        elapsed * 0.55
-      ) * 0.025;
+      </div>
 
 
-    /* -----------------------------------------------------
-       Particle breathing
-       ----------------------------------------------------- */
+      <div class="faq-list">
 
-    particleMaterial.opacity =
-      0.43 +
-      Math.sin(
-        elapsed * 0.75
-      ) * 0.10;
 
+        <div class="faq-item">
 
-    /* -----------------------------------------------------
-       Lights slowly move
-       ----------------------------------------------------- */
+          <div class="faq-question">
 
-    cyanLight.position.x =
-      2 +
-      Math.sin(
-        elapsed * 0.5
-      ) * 1.5;
+            <span>
+              Q. 誰でも応募できますか？
+            </span>
 
+            <span class="faq-icon">
+              +
+            </span>
 
-    cyanLight.position.y =
-      2 +
-      Math.cos(
-        elapsed * 0.4
-      ) * 0.8;
+          </div>
 
+          <div class="faq-answer">
 
-    blueLight.position.x =
-      -3 +
-      Math.cos(
-        elapsed * 0.35
-      ) * 1.0;
+            <p>
+              全国の高校生・高専生を対象としております。
+            </p>
 
+          </div>
 
-    blueLight.position.y =
-      -1 +
-      Math.sin(
-        elapsed * 0.3
-      ) * 0.8;
+        </div>
 
 
-    softLight.position.x =
-      Math.sin(
-        elapsed * 0.25
-      ) * 2;
+        <div class="faq-item">
 
+          <div class="faq-question">
 
-    /* -----------------------------------------------------
-       Camera subtle movement
-       ----------------------------------------------------- */
+            <span>
+              Q. 高専生も応募できますか？
+            </span>
 
-    camera.position.x +=
-      (
-        mouseX * 0.18 -
-        camera.position.x
-      ) * 0.015;
+            <span class="faq-icon">
+              +
+            </span>
 
+          </div>
 
-    camera.position.y +=
-      (
-        -mouseY * 0.12 -
-        camera.position.y
-      ) * 0.015;
+          <div class="faq-answer">
 
+            <p>
+              はい、高専生（低学年を中心とする高校相当年齢の方）もご応募いただけます。
+            </p>
 
-    camera.lookAt(
-      0.6,
-      0,
-      0
-    );
+          </div>
 
+        </div>
 
-    /* -----------------------------------------------------
-       Render
-       ----------------------------------------------------- */
 
-    renderer.render(
-      scene,
-      camera
-    );
+        <div class="faq-item">
 
-  }
+          <div class="faq-question">
 
+            <span>
+              Q. 個人とグループのどちらでも応募できますか？
+            </span>
 
-  animate();
+            <span class="faq-icon">
+              +
+            </span>
 
-});
-/* =========================================================
-   BENZENE FALLING EFFECT
-   メイン分子には触れず、ベンゼン環だけを追加
-   ========================================================= */
+          </div>
 
-(function () {
+          <div class="faq-answer">
 
-  function startBenzeneEffect() {
+            <p>
+              はい、個人およびグループ（共同研究）のどちらでもご応募可能です。
+            </p>
 
-    if (typeof THREE === "undefined") {
-      console.warn("Three.js が読み込まれていません。");
-      return;
-    }
+          </div>
 
-    if (!window.moleculeScene) {
-      console.warn("moleculeScene が見つかりません。");
-      return;
-    }
+        </div>
 
-    const scene = window.moleculeScene;
 
-    /* -----------------------------------------
-       設定
-       ----------------------------------------- */
+        <div class="faq-item">
 
-    const BENZENE_COUNT = 12;
+          <div class="faq-question">
 
-    // ベンゼン環の大きさ
-    // 極端に大きく・小さくしない
-    const MIN_SCALE = 0.48;
-    const MAX_SCALE = 0.72;
+            <span>
+              Q. 研究テーマに制限はありますか？
+            </span>
 
-    // 落下速度
-    const MIN_SPEED = 0.12;
-    const MAX_SPEED = 0.25;
+            <span class="faq-icon">
+              +
+            </span>
 
-    // 左右へのゆらぎ
-    const SWAY_AMOUNT = 0.18;
+          </div>
 
-    const benzeneGroup = new THREE.Group();
+          <div class="faq-answer">
 
-    // メイン分子より少し奥に配置
-    benzeneGroup.position.set(0, 0, -1.8);
+            <p>
+              自然科学・工学分野としていますが、探究的な活動であれば自由テーマとなります。
+            </p>
 
-    scene.add(benzeneGroup);
+          </div>
 
+        </div>
 
-    /* -----------------------------------------
-       ベンゼン環を作る
-       ----------------------------------------- */
 
-    function createBenzene() {
+        <div class="faq-item">
 
-      const group = new THREE.Group();
+          <div class="faq-question">
 
-      const radius = 0.52;
+            <span>
+              Q. 英語論文でも応募できますか？
+            </span>
 
-      const points = [];
+            <span class="faq-icon">
+              +
+            </span>
 
-      for (let i = 0; i < 6; i++) {
+          </div>
 
-        const angle =
-          (Math.PI * 2 / 6) * i +
-          Math.PI / 6;
+          <div class="faq-answer">
 
-        points.push(
-          new THREE.Vector3(
-            Math.cos(angle) * radius,
-            Math.sin(angle) * radius,
-            0
-          )
-        );
+            <p>
+              はい、日本語または英語での応募が可能です。
+            </p>
 
-      }
+          </div>
 
+        </div>
 
-      /* -----------------------------------------
-         外側の六角形
-         ----------------------------------------- */
 
-      const geometry = new THREE.BufferGeometry();
+        <div class="faq-item">
 
-      const vertices = [];
+          <div class="faq-question">
 
-      for (let i = 0; i < 6; i++) {
+            <span>
+              Q. 既に学会等で発表した研究でも応募できますか？
+            </span>
 
-        const a = points[i];
-        const b = points[(i + 1) % 6];
+            <span class="faq-icon">
+              +
+            </span>
 
-        vertices.push(
-          a.x, a.y, a.z,
-          b.x, b.y, b.z
-        );
+          </div>
 
-      }
+          <div class="faq-answer">
 
-      geometry.setAttribute(
-        "position",
-        new THREE.Float32BufferAttribute(vertices, 3)
-      );
+            <p>
+              はい。ただし継続研究の場合は、自身が行った内容を明確に表現してください。
+            </p>
 
+          </div>
 
-      const material = new THREE.LineBasicMaterial({
-        color: 0x00d2ff,
-        transparent: true,
-        opacity: 0.48,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending
-      });
+        </div>
 
 
-      const ring = new THREE.LineSegments(
-        geometry,
-        material
-      );
+        <div class="faq-item">
 
-      group.add(ring);
+          <div class="faq-question">
 
+            <span>
+              Q. 大学・企業との共同研究でも応募できますか？
+            </span>
 
-      /* -----------------------------------------
-         内側のベンゼン環
-         ----------------------------------------- */
+            <span class="faq-icon">
+              +
+            </span>
 
-      const innerGeometry = new THREE.BufferGeometry();
+          </div>
 
-      const innerRadius = 0.29;
+          <div class="faq-answer">
 
-      const innerPoints = [];
+            <p>
+              問題ありません。
+            </p>
 
-      for (let i = 0; i < 6; i++) {
+          </div>
 
-        const angle =
-          (Math.PI * 2 / 6) * i +
-          Math.PI / 6;
+        </div>
 
-        innerPoints.push(
-          new THREE.Vector3(
-            Math.cos(angle) * innerRadius,
-            Math.sin(angle) * innerRadius,
-            0.015
-          )
-        );
 
-      }
+        <div class="faq-item">
 
-      const innerVertices = [];
+          <div class="faq-question">
 
-      for (let i = 0; i < 6; i++) {
+            <span>
+              Q. 論文の形式に指定はありますか？
+            </span>
 
-        const a = innerPoints[i];
-        const b = innerPoints[(i + 1) % 6];
+            <span class="faq-icon">
+              +
+            </span>
 
-        innerVertices.push(
-          a.x, a.y, a.z,
-          b.x, b.y, b.z
-        );
+          </div>
 
-      }
+          <div class="faq-answer">
 
-      innerGeometry.setAttribute(
-        "position",
-        new THREE.Float32BufferAttribute(
-          innerVertices,
-          3
-        )
-      );
+            <p>
+              原則としてwordもしくはgoogleドキュメントで作成し、pdfファイルで事務局(labtoimpact.group@gmail.com)にお送りください。
+            </p>
 
+          </div>
 
-      const innerMaterial = new THREE.LineBasicMaterial({
-        color: 0x7ee8ff,
-        transparent: true,
-        opacity: 0.28,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending
-      });
+        </div>
 
 
-      const innerRing = new THREE.LineSegments(
-        innerGeometry,
-        innerMaterial
-      );
+        <div class="faq-item">
 
-      group.add(innerRing);
+          <div class="faq-question">
 
+            <span>
+              Q. 応募書類はどこからダウンロードできますか？
+            </span>
 
-      /* -----------------------------------------
-         六角形の頂点に小さな光
-         ----------------------------------------- */
+            <span class="faq-icon">
+              +
+            </span>
 
-      const vertexGeometry =
-        new THREE.SphereGeometry(
-          0.035,
-          8,
-          8
-        );
+          </div>
 
-      const vertexMaterial =
-        new THREE.MeshBasicMaterial({
-          color: 0x7ee8ff,
-          transparent: true,
-          opacity: 0.65
-        });
+          <div class="faq-answer">
 
+            <p>
+              当サイトの「応募書類」セクションよりダウンロードいただけます。
+            </p>
 
-      points.forEach(point => {
+          </div>
 
-        const atom =
-          new THREE.Mesh(
-            vertexGeometry,
-            vertexMaterial
-          );
+        </div>
 
-        atom.position.copy(point);
 
-        group.add(atom);
+        <div class="faq-item">
 
-      });
+          <div class="faq-question">
 
+            <span>
+              Q. 応募後に受付完了メールは届きますか？
+            </span>
 
-      return group;
-    }
+            <span class="faq-icon">
+              +
+            </span>
 
+          </div>
 
-    /* -----------------------------------------
-       ベンゼン環を生成
-       ----------------------------------------- */
+          <div class="faq-answer">
 
-    const benzeneObjects = [];
+            <p>
+              はい、ご応募いただいた翌日までに受付完了メールをお送りしております。
+            </p>
 
-    for (
-      let i = 0;
-      i < BENZENE_COUNT;
-      i++
-    ) {
+          </div>
 
-      const benzene = createBenzene();
+        </div>
 
-      const scale =
-        MIN_SCALE +
-        Math.random() *
-        (MAX_SCALE - MIN_SCALE);
 
-      benzene.scale.set(
-        scale,
-        scale,
-        scale
-      );
+      </div>
 
 
-      benzene.position.set(
+    </div>
 
-        // 横方向
-        -3.0 +
-        Math.random() * 6.0,
+  </section>
 
-        // 上からスタート
-        3.0 +
-        Math.random() * 6.0,
 
-        // 奥行き
-        -1.5 +
-        Math.random() * 2.0
 
-      );
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
 
+  <footer
+    class="footer"
+    id="contact"
+  >
 
-      // 最初から少し回転
-      benzene.rotation.x =
-        Math.random() * Math.PI;
+    <div class="container">
 
-      benzene.rotation.y =
-        Math.random() * Math.PI;
 
-      benzene.rotation.z =
-        Math.random() * Math.PI;
+      <div class="footer-content">
 
 
-      benzene.userData = {
+        <div class="footer-info">
 
-        speed:
-          MIN_SPEED +
-          Math.random() *
-          (MAX_SPEED - MIN_SPEED),
+          <h3>
+            Lab to Impact commercial group
+          </h3>
 
-        sway:
-          Math.random() *
-          Math.PI * 2,
+          <p class="footer-desc">
+            高等教育の研究知を社会へ接続し、新しい価値やイノベーションを創出するプラットフォームです。Lab to Impactは、分野の境界を超えた次世代研究者・スタートアップ事業を応援します。
+          </p>
 
-        swaySpeed:
-          0.25 +
-          Math.random() * 0.45,
+          <p class="footer-contact">
 
-        swayAmount:
-          SWAY_AMOUNT *
-          (0.6 + Math.random() * 0.8),
+            <strong>
+              お問い合わせ：
+            </strong>
 
-        rotationSpeed:
-          (Math.random() - 0.5) * 0.35,
+            <br>
 
-        startX:
-          benzene.position.x,
+            全国高校生研究論文大賞2026 事務局
 
-        opacity:
-          0.35 +
-          Math.random() * 0.3
+            <br>
 
-      };
+            Email:
 
+            <a href="mailto:labtoimpact.group@gmail.com">
+              labtoimpact.group@gmail.com
+            </a>
 
-      benzeneGroup.add(benzene);
+          </p>
 
-      benzeneObjects.push(benzene);
-    }
+        </div>
 
 
-    /* -----------------------------------------
-       落下アニメーション
-       ----------------------------------------- */
+      </div>
 
-    let lastTime = performance.now();
 
-    function animateBenzene(time) {
+      <div class="footer-bottom">
 
-      requestAnimationFrame(
-        animateBenzene
-      );
+        <p>
+          &copy; 2026 Lab to Impact commercial group. All Rights Reserved.
+        </p>
 
-      const delta =
-        Math.min(
-          (time - lastTime) / 1000,
-          0.05
-        );
+      </div>
 
-      lastTime = time;
 
+    </div>
 
-      benzeneObjects.forEach(
-        benzene => {
+  </footer>
 
-          const data =
-            benzene.userData;
 
 
-          /* -----------------------------
-             下へ落ちる
-             ----------------------------- */
+  <!-- =====================================================
+       THREE.JS
+       ===================================================== -->
 
-          benzene.position.y -=
-            data.speed * delta;
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+  ></script>
 
 
-          /* -----------------------------
-             左右にふわっと揺れる
-             ----------------------------- */
+  <!-- Main JavaScript -->
 
-          data.sway +=
-            data.swaySpeed * delta;
+  <script src="script.js"></script>
 
-          benzene.position.x =
-            data.startX +
-            Math.sin(data.sway) *
-            data.swayAmount;
 
+</body>
 
-          /* -----------------------------
-             ゆっくり回転
-             ----------------------------- */
-
-          benzene.rotation.z +=
-            data.rotationSpeed *
-            delta;
-
-          benzene.rotation.x +=
-            data.rotationSpeed *
-            0.35 *
-            delta;
-
-
-          /* -----------------------------
-             下まで来たら上へ戻す
-             ----------------------------- */
-
-          if (benzene.position.y < -4.0) {
-
-            benzene.position.y =
-              4.0 +
-              Math.random() * 3.0;
-
-            data.startX =
-              -3.0 +
-              Math.random() * 6.0;
-
-            benzene.position.x =
-              data.startX;
-
-            benzene.position.z =
-              -1.5 +
-              Math.random() * 2.0;
-
-            data.sway =
-              Math.random() *
-              Math.PI * 2;
-
-          }
-
-        }
-      );
-
-    }
-
-
-    animateBenzene(
-      performance.now()
-    );
-
-
-    console.log(
-      "Benzene falling effect started."
-    );
-
-  }
-
-
-  /* -----------------------------------------
-     Three.jsの初期化を待つ
-     ----------------------------------------- */
-
-  let checkCount = 0;
-
-  const checkScene =
-    setInterval(() => {
-
-      checkCount++;
-
-      if (window.moleculeScene) {
-
-        clearInterval(checkScene);
-
-        startBenzeneEffect();
-
-      }
-
-      // 10秒以上待たない
-      if (checkCount > 100) {
-
-        clearInterval(checkScene);
-
-        console.warn(
-          "ベンゼン環エフェクトを開始できませんでした。"
-        );
-
-      }
-
-    }, 100);
-
-})();
+</html>
