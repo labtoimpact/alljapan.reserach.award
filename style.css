@@ -1,2451 +1,2933 @@
 /* =========================================================
-   Lab to Impact - script.js
+   Lab to Impact
+   全国高校生研究論文大賞 2026
 
-   サイト全体の動き
-   +
-   Hero 3D Molecule
-   +
-   Floating Glow
-   +
-   Falling Benzene Rings
-   +
-   Mouse Rotation
+   Complete CSS
+   Hero redesigned to match reference visual
    ========================================================= */
 
 
 /* =========================================================
-   1. MOBILE MENU
+   1. ROOT
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+:root {
 
-    const menuToggle =
-      document.getElementById(
-        "menuToggle"
-      );
+  --navy-deep: #020817;
+  --navy-dark: #07142f;
+  --navy-light: #10244a;
 
-    const nav =
-      document.getElementById(
-        "nav"
-      );
+  --cyan: #00d2ff;
+  --cyan-light: #7ee8ff;
+  --blue: #3a86ff;
 
+  --gold: #ffb703;
+  --accent-red: #e63946;
 
-    if (
-      menuToggle &&
-      nav
-    ) {
+  --white: #ffffff;
 
-      menuToggle.addEventListener(
-        "click",
-        () => {
+  --gray-light: #f4f6f9;
+  --gray-text: #6c757d;
+  --border-color: #e2e8f0;
 
-          nav.classList.toggle(
-            "active"
-          );
-
-        }
-      );
-
-
-      const navLinks =
-        nav.querySelectorAll(
-          "a"
-        );
-
-
-      navLinks.forEach(
-        link => {
-
-          link.addEventListener(
-            "click",
-            () => {
-
-              nav.classList.remove(
-                "active"
-              );
-
-            }
-          );
-
-        }
-      );
-
-    }
-
-  }
-);
+}
 
 
 /* =========================================================
-   2. FAQ
+   2. RESET
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    const faqItems =
-      document.querySelectorAll(
-        ".faq-item"
-      );
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 
-    faqItems.forEach(
-      item => {
-
-        const question =
-          item.querySelector(
-            ".faq-question"
-          );
+html {
+  scroll-behavior: smooth;
+}
 
 
-        if (!question) {
-          return;
-        }
+body {
+
+  font-family:
+    'Noto Sans JP',
+    sans-serif;
+
+  color: var(--navy-deep);
+
+  background:
+    var(--white);
+
+  line-height: 1.7;
+
+}
 
 
-        question.addEventListener(
-          "click",
-          () => {
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 
-            faqItems.forEach(
-              otherItem => {
-
-                if (
-                  otherItem !== item
-                ) {
-
-                  otherItem.classList.remove(
-                    "active"
-                  );
-
-                }
-
-              }
-            );
+ul {
+  list-style: none;
+}
 
 
-            item.classList.toggle(
-              "active"
-            );
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-          }
-        );
 
-      }
-    );
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
 
-  }
-);
+
+.container {
+
+  width: 100%;
+
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding:
+    0 20px;
+
+}
 
 
 /* =========================================================
-   3. SMOOTH SCROLL
+   3. HEADER
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+.header {
 
-    const anchorLinks =
-      document.querySelectorAll(
-        'a[href^="#"]'
-      );
+  position: fixed;
 
+  top: 0;
+  left: 0;
 
-    anchorLinks.forEach(
-      link => {
+  width: 100%;
 
-        link.addEventListener(
-          "click",
-          event => {
+  background:
+    rgba(2, 8, 23, 0.82);
 
-            const targetId =
-              link.getAttribute(
-                "href"
-              );
+  backdrop-filter:
+    blur(14px);
 
+  -webkit-backdrop-filter:
+    blur(14px);
 
-            if (
-              !targetId ||
-              targetId === "#"
-            ) {
+  z-index: 1000;
 
-              return;
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.08);
 
-            }
+  transition:
+    background-color 0.3s ease;
+
+}
 
 
-            const target =
-              document.querySelector(
-                targetId
-              );
+.header-container {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  height: 70px;
+
+}
 
 
-            if (!target) {
-              return;
-            }
+/* Logo */
+
+.logo {
+
+  display: flex;
+
+  flex-direction:
+    column;
+
+}
 
 
-            event.preventDefault();
+.logo-title {
+
+  color:
+    var(--white);
+
+  font-weight:
+    700;
+
+  font-size:
+    1.1rem;
+
+}
 
 
-            target.scrollIntoView({
-              behavior:
-                "smooth",
+.logo-sub {
 
-              block:
-                "start"
-            });
+  color:
+    var(--cyan);
 
-          }
-        );
+  font-family:
+    'Orbitron',
+    sans-serif;
 
-      }
-    );
+  font-size:
+    0.6rem;
 
-  }
-);
+  letter-spacing:
+    0.05em;
+
+}
+
+
+/* Navigation */
+
+.nav-list {
+
+  display: flex;
+
+  gap:
+    25px;
+
+}
+
+
+.nav-list a {
+
+  color:
+    var(--white);
+
+  font-size:
+    0.9rem;
+
+  font-weight:
+    500;
+
+  transition:
+    color 0.2s ease;
+
+}
+
+
+.nav-list a:hover {
+
+  color:
+    var(--cyan);
+
+}
+
+
+/* Header Action */
+
+.header-action {
+
+  display: flex;
+
+  align-items:
+    center;
+
+  gap:
+    15px;
+
+}
+
+
+/* Mobile menu */
+
+.menu-toggle {
+
+  display: none;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    space-between;
+
+  width:
+    30px;
+
+  height:
+    21px;
+
+  background:
+    none;
+
+  border:
+    none;
+
+  cursor:
+    pointer;
+
+}
+
+
+.menu-toggle span {
+
+  display: block;
+
+  width:
+    100%;
+
+  height:
+    3px;
+
+  background:
+    var(--white);
+
+  transition:
+    0.3s;
+
+}
 
 
 /* =========================================================
-   4. SCROLL REVEAL
+   4. BUTTONS
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+.btn {
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    12px;
+
+  font-weight:
+    700;
+
+  text-align:
+    center;
+
+  border-radius:
+    2px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  cursor:
+    pointer;
+
+}
 
 
-    const elements =
-      document.querySelectorAll(
-        "section h2, section h3, section p, section .card, section .btn, section li, section table, section img"
-      );
+.btn:hover {
+
+  transform:
+    translateY(-2px);
+
+}
 
 
-    elements.forEach(
-      element => {
+/* Primary */
 
-        element.classList.add(
-          "reveal"
-        );
+.btn-primary {
 
-      }
-    );
+  background:
+    var(--accent-red);
 
+  color:
+    var(--white);
 
-    const revealObserver =
-      new IntersectionObserver(
-        (
-          entries,
-          observer
-        ) => {
+  border:
+    2px solid
+    var(--accent-red);
+
+}
 
 
-          entries.forEach(
-            entry => {
+.btn-primary:hover {
 
-              if (
-                entry.isIntersecting
-              ) {
+  background:
+    #d90429;
 
-                entry.target.classList.add(
-                  "show"
-                );
+  border-color:
+    #d90429;
 
+  box-shadow:
+    0 8px 24px
+    rgba(230,57,70,0.22);
 
-                observer.unobserve(
-                  entry.target
-                );
-
-              }
-
-            }
-          );
-
-        },
-        {
-          threshold:
-            0.12
-        }
-      );
+}
 
 
-    document
-      .querySelectorAll(
-        ".reveal"
-      )
-      .forEach(
-        element => {
+/* Secondary */
 
-          revealObserver.observe(
-            element
-          );
+.btn-secondary {
 
-        }
-      );
+  background:
+    transparent;
 
-  }
-);
+  color:
+    var(--white);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.55);
+
+}
+
+
+.btn-secondary:hover {
+
+  background:
+    rgba(0,210,255,0.12);
+
+  border-color:
+    var(--cyan);
+
+  color:
+    var(--white);
+
+}
+
+
+/* Outline */
+
+.btn-outline {
+
+  background:
+    transparent;
+
+  color:
+    var(--white);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.55);
+
+}
+
+
+.btn-outline:hover {
+
+  background:
+    rgba(255,255,255,0.08);
+
+  color:
+    var(--white);
+
+  border-color:
+    var(--cyan);
+
+}
+
+
+/* Sizes */
+
+.btn-sm {
+
+  padding:
+    8px 16px;
+
+  font-size:
+    0.85rem;
+
+}
+
+
+.btn-lg {
+
+  padding:
+    13px 25px;
+
+  font-size:
+    0.92rem;
+
+}
+
+
+.btn-arrow {
+
+  font-size:
+    1.25rem;
+
+  line-height:
+    0;
+
+  margin-top:
+    -2px;
+
+}
 
 
 /* =========================================================
    5. HERO
-   THREE.JS
    ========================================================= */
 
-window.addEventListener(
-  "load",
-  () => {
+.hero {
 
+  position:
+    relative;
 
-    /* -----------------------------------------------------
-       Three.js Check
-       ----------------------------------------------------- */
+  min-height:
+    680px;
 
-    if (
-      typeof THREE ===
-      "undefined"
-    ) {
+  height:
+    min(760px, 100vh);
 
-      console.warn(
-        "Three.js が読み込まれていません。"
-      );
+  display:
+    flex;
 
-      return;
+  align-items:
+    center;
 
-    }
+  padding:
+    110px 0 70px;
 
+  background:
 
-    /* -----------------------------------------------------
-       Container
-       ----------------------------------------------------- */
+    radial-gradient(
+      circle at 74% 48%,
+      rgba(0, 125, 255, 0.16)
+      0%,
+      rgba(0, 85, 190, 0.08)
+      25%,
+      transparent
+      52%
+    ),
 
-    const container =
-      document.getElementById(
-        "molecule-container"
-      );
+    radial-gradient(
+      circle at 92% 18%,
+      rgba(0, 210, 255, 0.11)
+      0%,
+      transparent
+      34%
+    ),
 
-
-    if (!container) {
-
-      console.warn(
-        "#molecule-container が見つかりません。"
-      );
-
-      return;
-
-    }
-
-
-    /* =====================================================
-       SCENE
-       ===================================================== */
-
-    const scene =
-      new THREE.Scene();
-
-
-    /*
-     * ベンゼン追加用に
-     * Sceneを外部から参照できるようにします。
-     */
-
-    window.moleculeScene =
-      scene;
-
-
-    /* =====================================================
-       CAMERA
-       ===================================================== */
-
-    const camera =
-      new THREE.PerspectiveCamera(
-        45,
-        container.clientWidth /
-          container.clientHeight,
-        0.1,
-        100
-      );
-
-
-    camera.position.set(
-      0,
-      0,
-      8
+    linear-gradient(
+      120deg,
+      #010613 0%,
+      #031027 45%,
+      #041638 100%
     );
 
+  color:
+    var(--white);
 
-    /* =====================================================
-       RENDERER
-       ===================================================== */
+  overflow:
+    hidden;
 
-    const renderer =
-      new THREE.WebGLRenderer({
-        antialias:
-          true,
+  isolation:
+    isolate;
 
-        alpha:
-          true
-      });
-
-
-    renderer.setPixelRatio(
-      Math.min(
-        window.devicePixelRatio,
-        2
-      )
-    );
-
-
-    renderer.setSize(
-      container.clientWidth,
-      container.clientHeight
-    );
-
-
-    renderer.setClearColor(
-      0x000000,
-      0
-    );
-
-
-    container.appendChild(
-      renderer.domElement
-    );
-
-
-    /* =====================================================
-       LIGHTS
-       ===================================================== */
-
-    const ambientLight =
-      new THREE.AmbientLight(
-        0x7ddfff,
-        1.0
-      );
-
-
-    scene.add(
-      ambientLight
-    );
-
-
-    const cyanLight =
-      new THREE.PointLight(
-        0x00d2ff,
-        2.5,
-        12
-      );
-
-
-    cyanLight.position.set(
-      2,
-      2,
-      4
-    );
-
-
-    scene.add(
-      cyanLight
-    );
-
-
-    const blueLight =
-      new THREE.PointLight(
-        0x3a86ff,
-        2.0,
-        10
-      );
-
-
-    blueLight.position.set(
-      -3,
-      -1,
-      2
-    );
-
-
-    scene.add(
-      blueLight
-    );
-
-
-    const softLight =
-      new THREE.PointLight(
-        0x7ee8ff,
-        1.5,
-        8
-      );
-
-
-    softLight.position.set(
-      0,
-      3,
-      -2
-    );
-
-
-    scene.add(
-      softLight
-    );
-
-
-    /* =====================================================
-       MAIN MOLECULE
-       ===================================================== */
-
-    const molecule =
-      new THREE.Group();
-
-
-    /*
-     * 位置は元のまま。
-     */
-
-    molecule.position.set(
-      1.35,
-      0.15,
-      0
-    );
-
-
-    molecule.scale.set(
-      1.15,
-      1.15,
-      1.15
-    );
-
-
-    scene.add(
-      molecule
-    );
-
-
-    /* =====================================================
-       ATOM CREATION
-       ===================================================== */
-
-    function createAtom(
-      radius,
-      color,
-      emissiveColor,
-      position
-    ) {
-
-
-      const geometry =
-        new THREE.SphereGeometry(
-          radius,
-          32,
-          32
-        );
-
-
-      const material =
-        new THREE.MeshStandardMaterial({
-
-          color:
-            color,
-
-          emissive:
-            emissiveColor,
-
-          emissiveIntensity:
-            0.7,
-
-          roughness:
-            0.25,
-
-          metalness:
-            0.15,
-
-          transparent:
-            true,
-
-          opacity:
-            0.96
-
-        });
-
-
-      const atom =
-        new THREE.Mesh(
-          geometry,
-          material
-        );
-
-
-      atom.position.copy(
-        position
-      );
-
-
-      molecule.add(
-        atom
-      );
-
-
-      return atom;
-
-    }
-
-
-    /* =====================================================
-       BOND CREATION
-       ===================================================== */
-
-    function createBond(
-      start,
-      end,
-      radius = 0.025
-    ) {
-
-
-      const direction =
-        new THREE.Vector3()
-          .subVectors(
-            end,
-            start
-          );
-
-
-      const length =
-        direction.length();
-
-
-      const geometry =
-        new THREE.CylinderGeometry(
-          radius,
-          radius,
-          length,
-          16
-        );
-
-
-      const material =
-        new THREE.MeshStandardMaterial({
-
-          color:
-            0x00d2ff,
-
-          emissive:
-            0x00d2ff,
-
-          emissiveIntensity:
-            0.65,
-
-          transparent:
-            true,
-
-          opacity:
-            0.72
-
-        });
-
-
-      const bond =
-        new THREE.Mesh(
-          geometry,
-          material
-        );
-
-
-      const midpoint =
-        new THREE.Vector3()
-          .addVectors(
-            start,
-            end
-          )
-          .multiplyScalar(
-            0.5
-          );
-
-
-      bond.position.copy(
-        midpoint
-      );
-
-
-      bond.quaternion.setFromUnitVectors(
-
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-
-        direction.normalize()
-
-      );
-
-
-      molecule.add(
-        bond
-      );
-
-
-      return bond;
-
-    }
-
-
-    /* =====================================================
-       MOLECULE STRUCTURE
-       ===================================================== */
-
-    const centerPosition =
-      new THREE.Vector3(
-        0,
-        0,
-        0
-      );
-
-
-    const atomPositions = [
-
-
-      new THREE.Vector3(
-        1.25,
-        0.45,
-        0.20
-      ),
-
-
-      new THREE.Vector3(
-        -1.15,
-        0.55,
-        -0.15
-      ),
-
-
-      new THREE.Vector3(
-        0.25,
-        -1.20,
-        0.35
-      ),
-
-
-      new THREE.Vector3(
-        0.15,
-        0.15,
-        -1.35
-      )
-
-    ];
-
-
-    /* =====================================================
-       CENTER ATOM
-       ===================================================== */
-
-    const centerAtom =
-      createAtom(
-        0.42,
-        0x00d2ff,
-        0x00d2ff,
-        centerPosition
-      );
-
-
-    /* =====================================================
-       OUTER ATOMS
-       ===================================================== */
-
-    const outerAtoms =
-      [];
-
-
-    atomPositions.forEach(
-      (
-        position,
-        index
-      ) => {
-
-
-        const atom =
-          createAtom(
-
-            index % 2 === 0
-              ? 0.28
-              : 0.23,
-
-            index % 2 === 0
-              ? 0x3a86ff
-              : 0x7ee8ff,
-
-            0x00d2ff,
-
-            position
-
-          );
-
-
-        outerAtoms.push(
-          atom
-        );
-
-
-        createBond(
-          centerPosition,
-          position,
-          0.025
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       EXTRA BONDS
-       ===================================================== */
-
-    createBond(
-      atomPositions[0],
-      atomPositions[2],
-      0.015
-    );
-
-
-    createBond(
-      atomPositions[1],
-      atomPositions[3],
-      0.015
-    );
-
-
-    /* =====================================================
-       BACKGROUND PARTICLES
-       ===================================================== */
-
-    const particleCount =
-      320;
-
-
-    const particlePositions =
-      new Float32Array(
-        particleCount * 3
-      );
-
-
-    for (
-      let i = 0;
-      i < particleCount;
-      i++
-    ) {
-
-
-      const i3 =
-        i * 3;
-
-
-      particlePositions[i3] =
-        (Math.random() - 0.5) * 7;
-
-
-      particlePositions[i3 + 1] =
-        (Math.random() - 0.5) * 5;
-
-
-      particlePositions[i3 + 2] =
-        (Math.random() - 0.5) * 7;
-
-    }
-
-
-    const particleGeometry =
-      new THREE.BufferGeometry();
-
-
-    particleGeometry.setAttribute(
-
-      "position",
-
-      new THREE.BufferAttribute(
-        particlePositions,
-        3
-      )
-
-    );
-
-
-    const particleMaterial =
-      new THREE.PointsMaterial({
-
-        color:
-          0x7ee8ff,
-
-        size:
-          0.045,
-
-        transparent:
-          true,
-
-        opacity:
-          0.52,
-
-        depthWrite:
-          false,
-
-        blending:
-          THREE.AdditiveBlending,
-
-        sizeAttenuation:
-          true
-
-      });
-
-
-    const particles =
-      new THREE.Points(
-        particleGeometry,
-        particleMaterial
-      );
-
-
-    particles.position.set(
-      0,
-      0,
-      -0.5
-    );
-
-
-    scene.add(
-      particles
-    );
-
-
-    /* =====================================================
-       SOFT GLOW PARTICLES
-       ===================================================== */
-
-    const glowCount =
-      42;
-
-
-    const glowPositions =
-      new Float32Array(
-        glowCount * 3
-      );
-
-
-    const glowBasePositions =
-      [];
-
-
-    for (
-      let i = 0;
-      i < glowCount;
-      i++
-    ) {
-
-
-      const i3 =
-        i * 3;
-
-
-      const angle =
-        Math.random() *
-        Math.PI *
-        2;
-
-
-      const radius =
-        1.5 +
-        Math.random() *
-        2.4;
-
-
-      const x =
-        1.0 +
-        Math.cos(angle) *
-        radius *
-        1.15;
-
-
-      const y =
-        Math.sin(angle) *
-        radius *
-        0.72;
-
-
-      const z =
-        (Math.random() - 0.5) *
-        2.5;
-
-
-      glowPositions[i3] =
-        x;
-
-
-      glowPositions[i3 + 1] =
-        y;
-
-
-      glowPositions[i3 + 2] =
-        z;
-
-
-      glowBasePositions.push({
-
-        x:
-          x,
-
-        y:
-          y,
-
-        z:
-          z,
-
-        phase:
-          Math.random() *
-          Math.PI *
-          2,
-
-        speed:
-          0.25 +
-          Math.random() *
-          0.45,
-
-        amplitude:
-          0.06 +
-          Math.random() *
-          0.14
-
-      });
-
-    }
-
-
-    const glowGeometry =
-      new THREE.BufferGeometry();
-
-
-    glowGeometry.setAttribute(
-
-      "position",
-
-      new THREE.BufferAttribute(
-        glowPositions,
-        3
-      )
-
-    );
-
-
-    const glowMaterial =
-      new THREE.PointsMaterial({
-
-        color:
-          0x00d2ff,
-
-        size:
-          0.20,
-
-        transparent:
-          true,
-
-        opacity:
-          0.32,
-
-        depthWrite:
-          false,
-
-        blending:
-          THREE.AdditiveBlending,
-
-        sizeAttenuation:
-          true
-
-      });
-
-
-    const glowParticles =
-      new THREE.Points(
-        glowGeometry,
-        glowMaterial
-      );
-
-
-    glowParticles.position.set(
-      0,
-      0,
-      -0.7
-    );
-
-
-    scene.add(
-      glowParticles
-    );
-
-
-    /* =====================================================
-       LARGE SOFT HALO
-       ===================================================== */
-
-    const haloGeometry =
-      new THREE.BufferGeometry();
-
-
-    const haloPosition =
-      new Float32Array([
-        1.1,
-        0.1,
-        -1.2
-      ]);
-
-
-    haloGeometry.setAttribute(
-
-      "position",
-
-      new THREE.BufferAttribute(
-        haloPosition,
-        3
-      )
-
-    );
-
-
-    const haloMaterial =
-      new THREE.PointsMaterial({
-
-        color:
-          0x7ee8ff,
-
-        size:
-          1.15,
-
-        transparent:
-          true,
-
-        opacity:
-          0.09,
-
-        depthWrite:
-          false,
-
-        blending:
-          THREE.AdditiveBlending,
-
-        sizeAttenuation:
-          true
-
-      });
-
-
-    const halo =
-      new THREE.Points(
-        haloGeometry,
-        haloMaterial
-      );
-
-
-    scene.add(
-      halo
-    );
-
-
-    /* =====================================================
-       MOUSE
-       ===================================================== */
-
-    let mouseX =
-      0;
-
-    let mouseY =
-      0;
-
-
-    let targetMouseX =
-      0;
-
-    let targetMouseY =
-      0;
-
-
-    window.addEventListener(
-      "mousemove",
-      event => {
-
-
-        targetMouseX =
-          event.clientX /
-          window.innerWidth -
-          0.5;
-
-
-        targetMouseY =
-          event.clientY /
-          window.innerHeight -
-          0.5;
-
-      }
-    );
-
-
-    /* =====================================================
-       TOUCH
-       ===================================================== */
-
-    window.addEventListener(
-      "touchmove",
-      event => {
-
-
-        if (
-          !event.touches ||
-          !event.touches[0]
-        ) {
-
-          return;
-
-        }
-
-
-        const touch =
-          event.touches[0];
-
-
-        targetMouseX =
-          touch.clientX /
-          window.innerWidth -
-          0.5;
-
-
-        targetMouseY =
-          touch.clientY /
-          window.innerHeight -
-          0.5;
-
-      },
-      {
-        passive:
-          true
-      }
-    );
-
-
-    /* =====================================================
-       RESIZE
-       ===================================================== */
-
-    function resize() {
-
-
-      const width =
-        container.clientWidth;
-
-
-      const height =
-        container.clientHeight;
-
-
-      if (
-        width === 0 ||
-        height === 0
-      ) {
-
-        return;
-
-      }
-
-
-      camera.aspect =
-        width / height;
-
-
-      camera.updateProjectionMatrix();
-
-
-      renderer.setSize(
-        width,
-        height
-      );
-
-    }
-
-
-    window.addEventListener(
-      "resize",
-      resize
-    );
-
-
-    resize();
-
-
-    /* =====================================================
-       CLOCK
-       ===================================================== */
-
-    const clock =
-      new THREE.Clock();
-
-
-    /* =====================================================
-       ANIMATION
-       ===================================================== */
-
-    function animate() {
-
-
-      requestAnimationFrame(
-        animate
-      );
-
-
-      const elapsed =
-        clock.getElapsedTime();
-
-
-      /* ===================================================
-         MOUSE EASING
-         =================================================== */
-
-      mouseX +=
-        (
-          targetMouseX -
-          mouseX
-        ) * 0.035;
-
-
-      mouseY +=
-        (
-          targetMouseY -
-          mouseY
-        ) * 0.035;
-
-
-      /* ===================================================
-         MAIN MOLECULE
-         AUTO ROTATION + MOUSE ROTATION
-         =================================================== */
-
-
-      /*
-       * 自動回転
-       *
-       * 元より少し速く。
-       */
-
-      const autoRotationY =
-        elapsed * 0.28;
-
-
-      /*
-       * マウス左右
-       */
-
-      const targetRotationY =
-        autoRotationY +
-        mouseX * 0.75;
-
-
-      /*
-       * マウス上下
-       */
-
-      const targetRotationX =
-        Math.sin(
-          elapsed * 0.45
-        ) * 0.10 +
-        mouseY * 0.45;
-
-
-      /*
-       * なめらかに追従
-       */
-
-      molecule.rotation.y +=
-        (
-          targetRotationY -
-          molecule.rotation.y
-        ) * 0.035;
-
-
-      molecule.rotation.x +=
-        (
-          targetRotationX -
-          molecule.rotation.x
-        ) * 0.035;
-
-
-      /*
-       * Z方向にも
-       * ごくわずかに反応
-       */
-
-      const targetRotationZ =
-        mouseX * 0.10;
-
-
-      molecule.rotation.z +=
-        (
-          targetRotationZ -
-          molecule.rotation.z
-        ) * 0.025;
-
-
-      /* ===================================================
-         FLOATING
-         =================================================== */
-
-      molecule.position.y =
-        0.15 +
-        Math.sin(
-          elapsed * 0.8
-        ) * 0.16;
-
-
-      molecule.position.x =
-        1.35 +
-        mouseX * 0.35;
-
-
-      molecule.position.z =
-        mouseY * 0.25;
-
-
-      /* ===================================================
-         BREATHING
-         =================================================== */
-
-      const breathe =
-        1 +
-        Math.sin(
-          elapsed * 1.15
-        ) * 0.025;
-
-
-      molecule.scale.set(
-        1.15 * breathe,
-        1.15 * breathe,
-        1.15 * breathe
-      );
-
-
-      /* ===================================================
-         CENTER ATOM PULSE
-         =================================================== */
-
-      centerAtom.scale.setScalar(
-
-        1 +
-        Math.sin(
-          elapsed * 1.8
-        ) * 0.08
-
-      );
-
-
-      /* ===================================================
-         OUTER ATOMS
-         =================================================== */
-
-      outerAtoms.forEach(
-        (
-          atom,
-          index
-        ) => {
-
-
-          const phase =
-            elapsed * 1.25 +
-            index * 0.8;
-
-
-          const scale =
-            1 +
-            Math.sin(
-              phase
-            ) * 0.055;
-
-
-          atom.scale.setScalar(
-            scale
-          );
-
-        }
-      );
-
-
-      /* ===================================================
-         BACKGROUND PARTICLES
-         =================================================== */
-
-      particles.rotation.y =
-        elapsed * 0.018;
-
-
-      particles.rotation.x =
-        Math.sin(
-          elapsed * 0.12
-        ) * 0.025;
-
-
-      particles.position.x =
-        mouseX * 0.18;
-
-
-      particles.position.y =
-        mouseY * 0.12;
-
-
-      /* ===================================================
-         GLOW PARTICLES
-         =================================================== */
-
-      glowParticles.rotation.y =
-        -elapsed * 0.025;
-
-
-      glowParticles.rotation.x =
-        elapsed * 0.012;
-
-
-      glowParticles.position.x =
-        mouseX * 0.25;
-
-
-      glowParticles.position.y =
-        mouseY * 0.18;
-
-
-      /* ===================================================
-         GLOW FLOATING
-         =================================================== */
-
-      const glowPositionAttribute =
-        glowGeometry.attributes.position;
-
-
-      for (
-        let i = 0;
-        i < glowCount;
-        i++
-      ) {
-
-
-        const data =
-          glowBasePositions[i];
-
-
-        const i3 =
-          i * 3;
-
-
-        glowPositionAttribute.array[i3] =
-
-          data.x +
-
-          Math.sin(
-            elapsed *
-            data.speed +
-            data.phase
-          ) *
-          data.amplitude;
-
-
-        glowPositionAttribute.array[i3 + 1] =
-
-          data.y +
-
-          Math.cos(
-            elapsed *
-            data.speed *
-            0.8 +
-            data.phase
-          ) *
-          data.amplitude;
-
-
-        glowPositionAttribute.array[i3 + 2] =
-
-          data.z +
-
-          Math.sin(
-            elapsed *
-            data.speed *
-            0.6 +
-            data.phase
-          ) *
-          data.amplitude *
-          0.5;
-
-      }
-
-
-      glowPositionAttribute.needsUpdate =
-        true;
-
-
-      /* ===================================================
-         GLOW BREATHING
-         =================================================== */
-
-      glowMaterial.opacity =
-
-        0.23 +
-
-        Math.sin(
-          elapsed * 0.7
-        ) * 0.09;
-
-
-      /* ===================================================
-         HALO
-         =================================================== */
-
-      const haloScale =
-
-        1 +
-
-        Math.sin(
-          elapsed * 0.55
-        ) * 0.12;
-
-
-      halo.scale.set(
-        haloScale,
-        haloScale,
-        haloScale
-      );
-
-
-      haloMaterial.opacity =
-
-        0.065 +
-
-        Math.sin(
-          elapsed * 0.55
-        ) * 0.025;
-
-
-      /* ===================================================
-         PARTICLE BREATHING
-         =================================================== */
-
-      particleMaterial.opacity =
-
-        0.43 +
-
-        Math.sin(
-          elapsed * 0.75
-        ) * 0.10;
-
-
-      /* ===================================================
-         LIGHT MOVEMENT
-         =================================================== */
-
-      cyanLight.position.x =
-
-        2 +
-
-        Math.sin(
-          elapsed * 0.5
-        ) * 1.5;
-
-
-      cyanLight.position.y =
-
-        2 +
-
-        Math.cos(
-          elapsed * 0.4
-        ) * 0.8;
-
-
-      blueLight.position.x =
-
-        -3 +
-
-        Math.cos(
-          elapsed * 0.35
-        ) * 1.0;
-
-
-      blueLight.position.y =
-
-        -1 +
-
-        Math.sin(
-          elapsed * 0.3
-        ) * 0.8;
-
-
-      softLight.position.x =
-
-        Math.sin(
-          elapsed * 0.25
-        ) * 2;
-
-
-      /* ===================================================
-         CAMERA
-         =================================================== */
-
-      camera.position.x +=
-
-        (
-          mouseX * 0.18 -
-          camera.position.x
-        ) * 0.015;
-
-
-      camera.position.y +=
-
-        (
-          -mouseY * 0.12 -
-          camera.position.y
-        ) * 0.015;
-
-
-      /*
-       * ここは以前の位置を維持。
-       * 分子が消えないように変更しない。
-       */
-
-      camera.lookAt(
-        0.6,
-        0,
-        0
-      );
-
-
-      /* ===================================================
-         RENDER
-         =================================================== */
-
-      renderer.render(
-        scene,
-        camera
-      );
-
-    }
-
-
-    animate();
-
-
-    /* =====================================================
-       BENZENE FALLING EFFECT
-       ===================================================== */
-
-    startBenzeneEffect(
-      scene
-    );
-
-
-  }
-);
+}
 
 
 /* =========================================================
-   BENZENE EFFECT
+   Hero Background
    ========================================================= */
 
-function startBenzeneEffect(
-  scene
-) {
+.hero-bg {
 
+  position:
+    absolute;
 
-  if (
-    typeof THREE ===
-    "undefined"
-  ) {
+  inset:
+    0;
 
-    return;
+  background:
 
-  }
+    radial-gradient(
+      ellipse at 65% 50%,
+      rgba(0,210,255,0.10),
+      transparent 45%
+    ),
 
-
-  /* =======================================================
-     SETTINGS
-     ======================================================= */
-
-  const BENZENE_COUNT =
-    12;
-
-
-  /*
-   * サイズは現在のまま
-   */
-
-  const MIN_SCALE =
-    0.48;
-
-
-  const MAX_SCALE =
-    0.72;
-
-
-  /*
-   * 落下速度も現在のまま
-   */
-
-  const MIN_SPEED =
-    0.12;
-
-
-  const MAX_SPEED =
-    0.25;
-
-
-  const SWAY_AMOUNT =
-    0.18;
-
-
-  /* =======================================================
-     BENZENE GROUP
-     ======================================================= */
-
-  const benzeneGroup =
-    new THREE.Group();
-
-
-  /*
-   * メイン分子より奥
-   */
-
-  benzeneGroup.position.set(
-    0,
-    0,
-    -1.8
-  );
-
-
-  scene.add(
-    benzeneGroup
-  );
-
-
-  /* =======================================================
-     CREATE BENZENE
-     ======================================================= */
-
-  function createBenzene() {
-
-
-    const group =
-      new THREE.Group();
-
-
-    const radius =
-      0.52;
-
-
-    const points =
-      [];
-
-
-    for (
-      let i = 0;
-      i < 6;
-      i++
-    ) {
-
-
-      const angle =
-
-        (
-          Math.PI *
-          2 /
-          6
-        ) *
-        i +
-
-        Math.PI /
-        6;
-
-
-      points.push(
-
-        new THREE.Vector3(
-
-          Math.cos(angle) *
-          radius,
-
-          Math.sin(angle) *
-          radius,
-
-          0
-
-        )
-
-      );
-
-    }
-
-
-    /* ===================================================
-       OUTER RING
-       =================================================== */
-
-    const geometry =
-      new THREE.BufferGeometry();
-
-
-    const vertices =
-      [];
-
-
-    for (
-      let i = 0;
-      i < 6;
-      i++
-    ) {
-
-
-      const a =
-        points[i];
-
-
-      const b =
-        points[
-          (i + 1) % 6
-        ];
-
-
-      vertices.push(
-
-        a.x,
-        a.y,
-        a.z,
-
-        b.x,
-        b.y,
-        b.z
-
-      );
-
-    }
-
-
-    geometry.setAttribute(
-
-      "position",
-
-      new THREE.Float32BufferAttribute(
-        vertices,
-        3
-      )
-
+    radial-gradient(
+      ellipse at 15% 90%,
+      rgba(58,134,255,0.09),
+      transparent 42%
     );
 
-
-    const material =
-      new THREE.LineBasicMaterial({
-
-        color:
-          0x00d2ff,
-
-        transparent:
-          true,
-
-        opacity:
-          0.48,
-
-        depthWrite:
-          false,
-
-        blending:
-          THREE.AdditiveBlending
-
-      });
-
-
-    const ring =
-      new THREE.LineSegments(
-        geometry,
-        material
-      );
-
-
-    group.add(
-      ring
-    );
-
-
-    /* ===================================================
-       INNER RING
-       =================================================== */
-
-    const innerGeometry =
-      new THREE.BufferGeometry();
-
-
-    const innerRadius =
-      0.29;
-
-
-    const innerPoints =
-      [];
-
-
-    for (
-      let i = 0;
-      i < 6;
-      i++
-    ) {
-
-
-      const angle =
-
-        (
-          Math.PI *
-          2 /
-          6
-        ) *
-        i +
-
-        Math.PI /
-        6;
-
-
-      innerPoints.push(
-
-        new THREE.Vector3(
-
-          Math.cos(angle) *
-          innerRadius,
-
-          Math.sin(angle) *
-          innerRadius,
-
-          0.015
-
-        )
-
-      );
-
-    }
-
-
-    const innerVertices =
-      [];
-
-
-    for (
-      let i = 0;
-      i < 6;
-      i++
-    ) {
-
-
-      const a =
-        innerPoints[i];
-
-
-      const b =
-        innerPoints[
-          (i + 1) % 6
-        ];
-
-
-      innerVertices.push(
-
-        a.x,
-        a.y,
-        a.z,
-
-        b.x,
-        b.y,
-        b.z
-
-      );
-
-    }
-
-
-    innerGeometry.setAttribute(
-
-      "position",
-
-      new THREE.Float32BufferAttribute(
-        innerVertices,
-        3
-      )
-
-    );
-
-
-    const innerMaterial =
-      new THREE.LineBasicMaterial({
-
-        color:
-          0x7ee8ff,
-
-        transparent:
-          true,
-
-        opacity:
-          0.28,
-
-        depthWrite:
-          false,
-
-        blending:
-          THREE.AdditiveBlending
-
-      });
-
-
-    const innerRing =
-      new THREE.LineSegments(
-
-        innerGeometry,
-
-        innerMaterial
-
-      );
-
-
-    group.add(
-      innerRing
-    );
-
-
-    /* ===================================================
-       VERTEX GLOW
-       =================================================== */
-
-    const vertexGeometry =
-      new THREE.SphereGeometry(
-        0.035,
-        8,
-        8
-      );
-
-
-    const vertexMaterial =
-      new THREE.MeshBasicMaterial({
-
-        color:
-          0x7ee8ff,
-
-        transparent:
-          true,
-
-        opacity:
-          0.65
-
-      });
-
-
-    points.forEach(
-      point => {
-
-
-        const atom =
-          new THREE.Mesh(
-
-            vertexGeometry,
-
-            vertexMaterial
-
-          );
-
-
-        atom.position.copy(
-          point
-        );
-
-
-        group.add(
-          atom
-        );
-
-      }
-    );
-
-
-    return group;
-
-  }
-
-
-  /* =======================================================
-     CREATE OBJECTS
-     ======================================================= */
-
-  const benzeneObjects =
-    [];
-
-
-  for (
-    let i = 0;
-    i < BENZENE_COUNT;
-    i++
-  ) {
-
-
-    const benzene =
-      createBenzene();
-
-
-    const scale =
-
-      MIN_SCALE +
-
-      Math.random() *
-      (
-        MAX_SCALE -
-        MIN_SCALE
-      );
-
-
-    benzene.scale.set(
-      scale,
-      scale,
-      scale
-    );
-
-
-    /*
-     * 最初の位置。
-     * 一部はHero内に見えるようにします。
-     */
-
-    benzene.position.set(
-
-      -3.0 +
-      Math.random() * 6.0,
-
-      -1.0 +
-      Math.random() * 6.0,
-
-      -1.5 +
-      Math.random() * 2.0
-
-    );
-
-
-    benzene.rotation.x =
-      Math.random() *
-      Math.PI;
-
-
-    benzene.rotation.y =
-      Math.random() *
-      Math.PI;
-
-
-    benzene.rotation.z =
-      Math.random() *
-      Math.PI;
-
-
-    benzene.userData = {
-
-      speed:
-
-        MIN_SPEED +
-
-        Math.random() *
-        (
-          MAX_SPEED -
-          MIN_SPEED
-        ),
-
-
-      sway:
-
-        Math.random() *
-        Math.PI *
-        2,
-
-
-      swaySpeed:
-
-        0.25 +
-        Math.random() *
-        0.45,
-
-
-      swayAmount:
-
-        SWAY_AMOUNT *
-        (
-          0.6 +
-          Math.random() *
-          0.8
-        ),
-
-
-      rotationSpeed:
-
-        (
-          Math.random() -
-          0.5
-        ) *
-        0.35,
-
-
-      startX:
-
-        benzene.position.x
-
-    };
-
-
-    benzeneGroup.add(
-      benzene
-    );
-
-
-    benzeneObjects.push(
-      benzene
-    );
-
-  }
-
-
-  /* =======================================================
-     ANIMATION
-     ======================================================= */
-
-  let lastTime =
-    performance.now();
-
-
-  function animateBenzene(
-    time
-  ) {
-
-
-    requestAnimationFrame(
-      animateBenzene
-    );
-
-
-    const delta =
-
-      Math.min(
-
-        (
-          time -
-          lastTime
-        ) / 1000,
-
-        0.05
-
-      );
-
-
-    lastTime =
-      time;
-
-
-    benzeneObjects.forEach(
-      benzene => {
-
-
-        const data =
-          benzene.userData;
-
-
-        /* -----------------------------------------------
-           FALL
-           ----------------------------------------------- */
-
-        benzene.position.y -=
-          data.speed *
-          delta;
-
-
-        /* -----------------------------------------------
-           SWAY
-           ----------------------------------------------- */
-
-        data.sway +=
-          data.swaySpeed *
-          delta;
-
-
-        benzene.position.x =
-
-          data.startX +
-
-          Math.sin(
-            data.sway
-          ) *
-          data.swayAmount;
-
-
-        /* -----------------------------------------------
-           ROTATION
-           ----------------------------------------------- */
-
-        benzene.rotation.z +=
-          data.rotationSpeed *
-          delta;
-
-
-        benzene.rotation.x +=
-          data.rotationSpeed *
-          0.35 *
-          delta;
-
-
-        /* -----------------------------------------------
-           RESET
-           ----------------------------------------------- */
-
-        if (
-          benzene.position.y <
-          -4.0
-        ) {
-
-
-          benzene.position.y =
-
-            4.0 +
-
-            Math.random() *
-            3.0;
-
-
-          data.startX =
-
-            -3.0 +
-
-            Math.random() *
-            6.0;
-
-
-          benzene.position.x =
-            data.startX;
-
-
-          benzene.position.z =
-
-            -1.5 +
-
-            Math.random() *
-            2.0;
-
-
-          data.sway =
-
-            Math.random() *
-            Math.PI *
-            2;
-
-        }
-
-      }
-    );
-
-  }
-
-
-  animateBenzene(
-    performance.now()
-  );
+  z-index:
+    1;
+
+  animation:
+    backgroundFloat
+    10s ease-in-out
+    infinite alternate;
 
 }
+
+
+@keyframes backgroundFloat {
+
+  from {
+    transform:
+      scale(1);
+  }
+
+  to {
+    transform:
+      scale(1.06);
+  }
+
+}
+
+
+/* =========================================================
+   Subtle network grid
+   ========================================================= */
+
+.hero-network {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  z-index:
+    1;
+
+  opacity:
+    0.18;
+
+  pointer-events:
+    none;
+
+  background-image:
+
+    linear-gradient(
+      90deg,
+      transparent 49.8%,
+      rgba(0,210,255,0.08) 50%,
+      transparent 50.2%
+    ),
+
+    linear-gradient(
+      0deg,
+      transparent 49.8%,
+      rgba(0,210,255,0.06) 50%,
+      transparent 50.2%
+    );
+
+  background-size:
+    180px 180px;
+
+  mask-image:
+    radial-gradient(
+      circle at 75% 55%,
+      black 0%,
+      transparent 70%
+    );
+
+}
+
+
+/* =========================================================
+   3D MOLECULE
+   ========================================================= */
+
+#molecule-container {
+
+  position:
+    absolute;
+
+  top:
+    0;
+
+  right:
+    -5%;
+
+  width:
+    70%;
+
+  height:
+    100%;
+
+  z-index:
+    2;
+
+  pointer-events:
+    none;
+
+  overflow:
+    visible;
+
+  opacity:
+    0.98;
+
+  filter:
+    saturate(1.08)
+    contrast(1.03);
+
+}
+
+
+#molecule-container canvas {
+
+  display:
+    block;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+}
+
+
+/* =========================================================
+   Hero glow
+   ========================================================= */
+
+.hero::after {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  width:
+    650px;
+
+  height:
+    650px;
+
+  right:
+    -1%;
+
+  top:
+    3%;
+
+  background:
+
+    radial-gradient(
+      circle,
+
+      rgba(0,210,255,0.16)
+      0%,
+
+      rgba(0,210,255,0.09)
+      20%,
+
+      rgba(58,134,255,0.045)
+      40%,
+
+      rgba(0,0,0,0)
+      72%
+    );
+
+  filter:
+    blur(35px);
+
+  pointer-events:
+    none;
+
+  z-index:
+    1;
+
+  animation:
+    heroGlow
+    7s ease-in-out
+    infinite alternate;
+
+}
+
+
+@keyframes heroGlow {
+
+  0% {
+
+    transform:
+      scale(0.9);
+
+    opacity:
+      0.65;
+
+  }
+
+  100% {
+
+    transform:
+      scale(1.1);
+
+    opacity:
+      1;
+
+  }
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.hero-container {
+
+  position:
+    relative;
+
+  z-index:
+    5;
+
+  width:
+    100%;
+
+}
+
+
+/* Badge */
+
+.hero-badge {
+
+  display:
+    inline-block;
+
+  padding:
+    5px 10px;
+
+  margin-bottom:
+    17px;
+
+  color:
+    var(--cyan);
+
+  border:
+    1px solid
+    rgba(0,210,255,0.45);
+
+  background:
+    rgba(0,210,255,0.06);
+
+  border-radius:
+    1px;
+
+  font-size:
+    0.68rem;
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    0.03em;
+
+}
+
+
+/* English */
+
+.hero-en {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    0.62rem;
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    0.48em;
+
+  color:
+    rgba(0,210,255,0.9);
+
+  margin-bottom:
+    17px;
+
+}
+
+
+/* =========================================================
+   MAIN TITLE
+   ========================================================= */
+
+.hero-title {
+
+  max-width:
+    600px;
+
+  font-family:
+    'Noto Sans JP',
+    sans-serif;
+
+  font-size:
+    clamp(2.4rem, 4.1vw, 4rem);
+
+  font-weight:
+    900;
+
+  line-height:
+    1.38;
+
+  letter-spacing:
+    0.015em;
+
+  color:
+    var(--white);
+
+  margin-bottom:
+    24px;
+
+  text-shadow:
+    0 0 25px
+    rgba(0,0,0,0.28);
+
+}
+
+
+.title-blue {
+
+  color:
+    #12cfff;
+
+  text-shadow:
+    0 0 22px
+    rgba(0,210,255,0.3);
+
+}
+
+
+/* Lead */
+
+.hero-lead {
+
+  max-width:
+    570px;
+
+  font-size:
+    0.82rem;
+
+  line-height:
+    1.9;
+
+  color:
+    rgba(226,232,240,0.86);
+
+  margin-bottom:
+    28px;
+
+}
+
+
+/* CTA */
+
+.hero-cta {
+
+  display:
+    flex;
+
+  gap:
+    8px;
+
+  flex-wrap:
+    wrap;
+
+}
+
+
+.hero-cta .btn {
+
+  min-height:
+    46px;
+
+}
+
+
+/* =========================================================
+   6. COMMON SECTIONS
+   ========================================================= */
+
+.section {
+
+  padding:
+    90px 0;
+
+}
+
+
+.bg-light {
+
+  background:
+    var(--gray-light);
+
+}
+
+
+.section-header {
+
+  text-align:
+    center;
+
+  margin-bottom:
+    60px;
+
+}
+
+
+.section-tag {
+
+  display:
+    inline-block;
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    0.75rem;
+
+  letter-spacing:
+    0.15em;
+
+  color:
+    var(--blue);
+
+  margin-bottom:
+    8px;
+
+}
+
+
+.section-title {
+
+  font-size:
+    2.2rem;
+
+  font-weight:
+    700;
+
+  margin-bottom:
+    15px;
+
+}
+
+
+.section-desc {
+
+  color:
+    var(--gray-text);
+
+  font-size:
+    0.95rem;
+
+}
+
+
+/* =========================================================
+   7. ABOUT
+   ========================================================= */
+
+.about-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:
+    30px;
+
+  margin-bottom:
+    50px;
+
+}
+
+
+.about-card {
+
+  background:
+    var(--gray-light);
+
+  padding:
+    40px;
+
+  border-radius:
+    8px;
+
+  border-left:
+    4px solid
+    var(--blue);
+
+}
+
+
+.about-card h3 {
+
+  font-size:
+    1.25rem;
+
+  margin-bottom:
+    15px;
+
+}
+
+
+.about-list li {
+
+  padding:
+    8px 0;
+
+  border-bottom:
+    1px solid
+    var(--border-color);
+
+  display:
+    flex;
+
+}
+
+
+.about-list li span {
+
+  font-weight:
+    700;
+
+  width:
+    120px;
+
+  color:
+    var(--navy-dark);
+
+}
+
+
+/* Feature icons */
+
+.feature-icons {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    20px;
+
+}
+
+
+.feature-item {
+
+  background:
+    var(--white);
+
+  padding:
+    30px 20px;
+
+  text-align:
+    center;
+
+  border-radius:
+    8px;
+
+  border:
+    1px solid
+    var(--border-color);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+
+.feature-item:hover {
+
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(10,17,40,0.08);
+
+}
+
+
+.feature-icon-circle {
+
+  font-size:
+    2rem;
+
+  margin-bottom:
+    15px;
+
+}
+
+
+.feature-item h4 {
+
+  font-size:
+    0.95rem;
+
+  font-weight:
+    500;
+
+}
+
+
+/* =========================================================
+   8. PRIZE
+   ========================================================= */
+
+.prize-container {
+
+  max-width:
+    900px;
+
+  margin:
+    0 auto;
+
+}
+
+
+.prize-total {
+
+  background:
+
+    linear-gradient(
+      135deg,
+      var(--navy-deep),
+      var(--navy-dark)
+    );
+
+  color:
+    var(--white);
+
+  text-align:
+    center;
+
+  padding:
+    30px;
+
+  border-radius:
+    8px 8px 0 0;
+
+  border-bottom:
+    2px solid
+    var(--gold);
+
+}
+
+
+.prize-total-label {
+
+  display:
+    block;
+
+  font-size:
+    0.9rem;
+
+  color:
+    var(--gold);
+
+  margin-bottom:
+    5px;
+
+}
+
+
+.prize-total-amount {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    2.5rem;
+
+  font-weight:
+    700;
+
+}
+
+
+.prize-total-amount .unit {
+
+  font-size:
+    1.2rem;
+
+}
+
+
+.prize-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  background:
+    var(--white);
+
+  border-radius:
+    0 0 8px 8px;
+
+  box-shadow:
+    0 4px 6px
+    rgba(0,0,0,0.05);
+
+}
+
+
+.prize-card {
+
+  padding:
+    30px 20px;
+
+  text-align:
+    center;
+
+  border-right:
+    1px solid
+    var(--border-color);
+
+}
+
+
+.prize-card:last-child {
+
+  border-right:
+    none;
+
+}
+
+
+.prize-card.featured {
+
+  background:
+    rgba(0,210,255,0.05);
+
+}
+
+
+.prize-rank {
+
+  font-size:
+    0.9rem;
+
+  font-weight:
+    700;
+
+  color:
+    var(--gray-text);
+
+  margin-bottom:
+    10px;
+
+}
+
+
+.prize-money {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    1.5rem;
+
+  font-weight:
+    700;
+
+  color:
+    var(--navy-deep);
+
+}
+
+
+.prize-money span {
+
+  font-size:
+    0.9rem;
+
+}
+
+
+/* =========================================================
+   9. JUDGING
+   ========================================================= */
+
+.judging-content {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    300px 1fr;
+
+  gap:
+    40px;
+
+  max-width:
+    900px;
+
+  margin:
+    0 auto;
+
+  align-items:
+    center;
+
+}
+
+
+.score-circle {
+
+  width:
+    250px;
+
+  height:
+    250px;
+
+  background:
+    var(--navy-deep);
+
+  color:
+    var(--white);
+
+  border-radius:
+    50%;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  margin:
+    0 auto;
+
+  border:
+    6px solid
+    var(--cyan);
+
+}
+
+
+.score-total {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    4rem;
+
+  font-weight:
+    700;
+
+  line-height:
+    1;
+
+}
+
+
+.score-label {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    0.9rem;
+
+  letter-spacing:
+    0.1em;
+
+  color:
+    var(--cyan);
+
+}
+
+
+.judging-details {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    20px;
+
+}
+
+
+.judging-category {
+
+  background:
+    var(--gray-light);
+
+  padding:
+    20px;
+
+  border-radius:
+    6px;
+
+}
+
+
+.judging-category h3 {
+
+  font-size:
+    1.05rem;
+
+  margin-bottom:
+    10px;
+
+  color:
+    var(--navy-dark);
+
+  border-bottom:
+    2px solid
+    var(--blue);
+
+  padding-bottom:
+    5px;
+
+}
+
+
+.judging-category ul li {
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  padding:
+    4px 0;
+
+  font-size:
+    0.9rem;
+
+}
+
+
+/* =========================================================
+   10. TIMELINE
+   ========================================================= */
+
+.timeline {
+
+  max-width:
+    800px;
+
+  margin:
+    0 auto;
+
+  position:
+    relative;
+
+}
+
+
+.timeline::before {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  top:
+    0;
+
+  left:
+    150px;
+
+  height:
+    100%;
+
+  width:
+    2px;
+
+  background:
+    var(--border-color);
+
+}
+
+
+.timeline-item {
+
+  display:
+    flex;
+
+  margin-bottom:
+    30px;
+
+  position:
+    relative;
+
+}
+
+
+.timeline-date {
+
+  width:
+    130px;
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    0.85rem;
+
+  font-weight:
+    700;
+
+  color:
+    var(--blue);
+
+  padding-top:
+    2px;
+
+}
+
+
+.timeline-content {
+
+  flex:
+    1;
+
+  padding-left:
+    40px;
+
+  position:
+    relative;
+
+}
+
+
+.timeline-content::before {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  left:
+    -6px;
+
+  top:
+    6px;
+
+  width:
+    14px;
+
+  height:
+    14px;
+
+  background:
+    var(--white);
+
+  border:
+    3px solid
+    var(--blue);
+
+  border-radius:
+    50%;
+
+}
+
+
+.timeline-content h3 {
+
+  font-size:
+    1.05rem;
+
+  margin-bottom:
+    5px;
+
+}
+
+
+.timeline-content p {
+
+  font-size:
+    0.9rem;
+
+  color:
+    var(--gray-text);
+
+}
+
+
+/* =========================================================
+   11. STEP
+   ========================================================= */
+
+.step-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    20px;
+
+}
+
+
+.step-card {
+
+  background:
+    var(--white);
+
+  padding:
+    30px 20px;
+
+  border-radius:
+    8px;
+
+  border:
+    1px solid
+    var(--border-color);
+
+  position:
+    relative;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+
+.step-card:hover {
+
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(10,17,40,0.08);
+
+}
+
+
+.step-num {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    700;
+
+  color:
+    var(--blue);
+
+  margin-bottom:
+    10px;
+
+}
+
+
+.step-card h3 {
+
+  font-size:
+    1rem;
+
+  margin-bottom:
+    10px;
+
+}
+
+
+.step-card p {
+
+  font-size:
+    0.85rem;
+
+  color:
+    var(--gray-text);
+
+}
+
+
+/* =========================================================
+   12. MAIL
+   ========================================================= */
+
+.mail-link {
+
+  color:
+    var(--blue);
+
+  text-decoration:
+    underline;
+
+  word-break:
+    break-all;
+
+}
+
+
+/* =========================================================
+   13. DOWNLOAD
+   ========================================================= */
+
+.download-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap:
+    20px;
+
+  max-width:
+    900px;
+
+  margin:
+    0 auto;
+
+}
+
+
+.download-card {
+
+  background:
+    var(--white);
+
+  padding:
+    30px;
+
+  border-radius:
+    8px;
+
+  border:
+    1px solid
+    var(--border-color);
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    space-between;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+
+.download-card:hover {
+
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(10,17,40,0.08);
+
+}
+
+
+.download-card h3 {
+
+  font-size:
+    1.1rem;
+
+  margin-bottom:
+    10px;
+
+}
+
+
+.download-card p {
+
+  font-size:
+    0.9rem;
+
+  color:
+    var(--gray-text);
+
+  margin-bottom:
+    20px;
+
+}
+
+
+.download-actions {
+
+  display:
+    flex;
+
+  gap:
+    10px;
+
+}
+
+
+/* =========================================================
+   14. RULES
+   ========================================================= */
+
+.rules-box {
+
+  max-width:
+    900px;
+
+  margin:
+    0 auto;
+
+  background:
+    var(--white);
+
+  padding:
+    40px;
+
+  border-radius:
+    8px;
+
+  border:
+    1px solid
+    var(--border-color);
+
+}
+
+
+.rules-box ul li {
+
+  margin-bottom:
+    15px;
+
+  font-size:
+    0.9rem;
+
+  line-height:
+    1.6;
+
+}
+
+
+.rules-box ul li:last-child {
+
+  margin-bottom:
+    0;
+
+}
+
+
+/* =========================================================
+   15. FAQ
+   ========================================================= */
+
+.faq-list {
+
+  max-width:
+    800px;
+
+  margin:
+    0 auto;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    15px;
+
+}
+
+
+.faq-item {
+
+  background:
+    var(--white);
+
+  border-radius:
+    6px;
+
+  border:
+    1px solid
+    var(--border-color);
+
+  overflow:
+    hidden;
+
+}
+
+
+.faq-question {
+
+  padding:
+    20px;
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  cursor:
+    pointer;
+
+  font-weight:
+    700;
+
+  font-size:
+    0.95rem;
+
+}
+
+
+.faq-icon {
+
+  font-size:
+    1.2rem;
+
+  color:
+    var(--blue);
+
+  transition:
+    transform 0.3s ease;
+
+}
+
+
+.faq-answer {
+
+  padding:
+    0 20px 20px;
+
+  font-size:
+    0.9rem;
+
+  color:
+    var(--gray-text);
+
+  display:
+    none;
+
+}
+
+
+.faq-item.active .faq-answer {
+
+  display:
+    block;
+
+}
+
+
+.faq-item.active .faq-icon {
+
+  transform:
+    rotate(45deg);
+
+}
+
+
+/* =========================================================
+   16. FOOTER
+   ========================================================= */
+
+.footer {
+
+  background:
+    var(--navy-deep);
+
+  color:
+    var(--white);
+
+  padding:
+    60px 0 30px;
+
+}
+
+
+.footer-info h3 {
+
+  font-size:
+    1.1rem;
+
+  margin-bottom:
+    15px;
+
+  color:
+    var(--cyan);
+
+}
+
+
+.footer-desc {
+
+  font-size:
+    0.85rem;
+
+  color:
+    #cbd5e1;
+
+  margin-bottom:
+    20px;
+
+  max-width:
+    800px;
+
+}
+
+
+.footer-contact {
+
+  font-size:
+    0.85rem;
+
+  color:
+    #cbd5e1;
+
+}
+
+
+.footer-contact a {
+
+  color:
+    var(--cyan);
+
+}
+
+
+.footer-bottom {
+
+  text-align:
+    center;
+
+  padding-top:
+    30px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,0.1);
+
+  font-size:
+    0.8rem;
+
+  color:
+    #94a3b8;
+
+}
+
+
+/* =========================================================
+   17. SCROLL REVEAL
+   ========================================================= */
+
+.reveal {
+
+  opacity:
+    0;
+
+  transform:
+    translateY(35px);
+
+  transition:
+
+    opacity
+    0.9s
+    cubic-bezier(0.22,1,0.36,1),
+
+    transform
+    0.9s
+    cubic-bezier(0.22,1,0.36,1);
+
+}
+
+
+.reveal.show {
+
+  opacity:
+    1;
+
+  transform:
+    translateY(0);
+
+}
+
+
+.reveal:nth-child(2) {
+
+  transition-delay:
+    0.08s;
+
+}
+
+
+.reveal:nth-child(3) {
+
+  transition-delay:
+    0.16s;
+
+}
+
+
+.reveal:nth-child(4) {
+
+  transition-delay:
+    0.24s;
+
+}
+
+
+/* =========================================================
+   18. TABLE
+   ========================================================= */
+
+table {
+
+  width:
+    100%;
+
+  border-collapse:
+    collapse;
+
+}
+
+
+th,
+td {
+
+  padding:
+    12px 15px;
+
+  border-bottom:
+    1px solid
+    var(--border-color);
+
+  text-align:
+    left;
+
+}
+
+
+th {
+
+  font-weight:
+    700;
+
+  color:
+    var(--navy-dark);
+
+}
+
+
+/* =========================================================
+   19. CARD
+   ========================================================= */
+
+.card {
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+
+.card:hover {
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(10,17,40,0.07);
+
+}
+
+
+/* =========================================================
+   20. TABLET
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+  .about-grid,
+  .step-grid,
+  .feature-icons {
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+
+  .judging-content {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .score-circle {
+
+    margin-bottom:
+      20px;
+
+  }
+
+
+  .hero {
+
+    min-height:
+      650px;
+
+  }
+
+
+  .hero-title {
+
+    font-size:
+      3rem;
+
+  }
+
+}
+
+
+/* =========================================================
+   21. MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+
+  /* Header */
+
+  .nav {
+
+    position:
+      fixed;
+
+    top:
+      70px;
+
+    left:
+      -100%;
+
+    width:
+      100%;
+
+    height:
+      calc(100vh - 70px);
+
+    background:
+      rgba(2,8,23,0.98);
+
+    backdrop-filter:
+      blur(15px);
+
+    flex-direction:
+      column;
+
+    justify-content:
+      center;
+
+    align-items:
+      center;
+
+    transition:
+      left 0.3s ease;
+
+  }
+
+
+  .nav.active {
+
+    left:
+      0;
+
+  }
+
+
+  .nav-list {
+
+    flex-direction:
+      column;
+
+    align-items:
+      center;
+
+    gap:
+      20px;
+
+  }
+
+
+  .menu-toggle {
+
+    display:
+      flex;
+
+  }
+
+
+  /* Hero */
+
+  .hero {
+
+    min-height:
+      720px;
+
+    height:
+      auto;
+
+    padding:
+      130px 0 80px;
+
+    align-items:
+      flex-start;
+
+  }
+
+
+  .hero-container {
+
+    padding-top:
+      40px;
+
+  }
+
+
+  .hero-badge {
+
+    font-size:
+      0.68rem;
+
+  }
+
+
+  .hero-en {
+
+    font-size:
+      0.55rem;
+
+    letter-spacing:
+      0.25em;
+
+  }
+
+
+  .hero-title {
+
+    max-width:
+      100%;
+
+    font-size:
+      2.25rem;
+
+    line-height:
+      1.55;
+
+  }
+
+
+  .hero-lead {
+
+    max-width:
+      80%;
+
+    font-size:
+      0.82rem;
+
+    line-height:
+      1.8;
+
+  }
+
+
+  .hero-cta {
+
+    position:
+      relative;
+
+    z-index:
+      10;
+
+  }
+
+
+  .hero-cta .btn {
+
+    font-size:
+      0.82rem;
+
+    padding:
+      11px 18px;
+
+  }
+
+
+  /* Molecule */
+
+  #molecule-container {
+
+    width:
+      125%;
+
+    height:
+      70%;
+
+    right:
+      -32%;
+
+    top:
+      18%;
+
+    opacity:
+      0.60;
+
+  }
+
+
+  .hero::after {
+
+    width:
+      430px;
+
+    height:
+      430px;
+
+    right:
+      -20%;
+
+    top:
+      18%;
+
+  }
+
+
+  /* Sections */
+
+  .section {
+
+    padding:
+      70px 0;
+
+  }
+
+
+  .section-header {
+
+    margin-bottom:
+      40px;
+
+  }
+
+
+  .section-title {
+
+    font-size:
+      1.8rem;
+
+  }
+
+
+  /* Grids */
+
+  .about-grid,
+  .step-grid,
+  .feature-icons,
+  .prize-grid,
+  .download-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  /* About */
+
+  .about-card {
+
+    padding:
+      30px;
+
+  }
+
+
+  .about-list li {
+
+    flex-direction:
+      column;
+
+    gap:
+      2px;
+
+  }
+
+
+  .about-list li span {
+
+    width:
+      auto;
+
+  }
+
+
+  /* Prize */
+
+  .prize-card {
+
+    border-right:
+      none;
+
+    border-bottom:
+      1px solid
+      var(--border-color);
+
+  }
+
+
+  .prize-card:last-child {
+
+    border-bottom:
+      none;
+
+  }
+
+
+  /* Judging */
+
+  .judging-content {
+
+    gap:
+      30px;
+
+  }
+
+
+  .score-circle {
+
+    width:
+      210px;
+
+    height:
+      210px;
+
+  }
+
+
+  .score-total {
+
+    font-size:
+      3.2rem;
+
+  }
+
+
+  /* Timeline */
+
+  .timeline::before {
+
+    left:
+      0;
+
+  }
+
+
+  .timeline-item {
+
+    flex-direction:
+      column;
+
+  }
+
+
+  .timeline-date {
+
+    width:
+      100%;
+
+    margin-bottom:
+      5px;
+
+  }
+
+
+  .timeline-content {
+
+    padding-left:
+      20px;
+
+  }
+
+
+  .timeline-content::before {
+
+    left:
+      -14px;
+
+  }
+
+
+  /* Download */
+
+  .download-actions {
+
+    flex-wrap:
+      wrap;
+
+  }
+
+
+  /* Rules */
+
+  .rules-box {
+
+    padding:
+      30px 20px;
+
+  }
+
+}
+
+
+/* =========================================================
+   22. SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+
+  .container {
+
+    padding:
+      0 16px;
+
+  }
+
+
+  .hero {
+
+    padding-top:
+      120px;
+
+  }
+
+
+  .hero-container {
+
+    padding-top:
+      25px;
+
+  }
+
+
+  .hero-title {
+
+    font-size:
+      1.9rem;
+
+    line-height:
+      1.65;
+
+  }
+
+
+  .hero-en {
+
+    font-size:
+      0.48rem;
+
+    letter-spacing:
+      0.18em;
+
+  }
+
+
+  .hero-badge {
+
+    font-size:
+      0.63rem;
+
+  }
+
+
+  .hero-lead {
+
+    max-width:
+      88%;
+
+    font-size:
+      0.76rem;
+
+  }
+
+
+  .hero-cta {
+
+    flex-direction:
+      column;
+
+    align-items:
+      stretch;
+
+    width:
+      88%;
+
+  }
+
+
+  .hero-cta .btn {
+
+    width:
+      100%;
+
+  }
+
+
+  #molecule-container {
+
+    width:
+      145%;
+
+    height:
+      68%;
+
+    right:
+      -48%;
+
+    top:
+      20%;
+
+    opacity:
+      0.52;
+
+  }
+
+
+  .section-title {
+
+    font-size:
+      1.6rem;
+
+  }
+
+
+  .section-desc {
+
+    font-size:
+      0.9rem;
+
+  }
+
+
+  .about-card,
+  .download-card {
+
+    padding:
+      25px 20px;
+
+  }
+
+
+  .prize-total-amount {
+
+    font-size:
+      2rem;
+
+  }
+
+
+  .judging-category {
+
+    padding:
+      18px;
+
+  }
+
+
+  .score-circle {
+
+    width:
+      190px;
+
+    height:
+      190px;
+
+    border-width:
+      5px;
+
+  }
+
+
+  .score-total {
+
+    font-size:
+      2.8rem;
+
+  }
+
+
+  .rules-box {
+
+    padding:
+      25px 18px;
+
+  }
+
+}
+
+
+/* =========================================================
+   END
+   ========================================================= */
